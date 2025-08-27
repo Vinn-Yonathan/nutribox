@@ -1,18 +1,68 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const About = ({ className }) => {
+  useGSAP(() => {
+    gsap.from("#para1", {
+      scrollTrigger: {
+        trigger: ".section",
+        start: "top 50%",
+        end: "bottom 70%",
+        scrub: 1,
+        markers: false,
+      },
+      opacity: 0,
+      yPercent: -10,
+      duration: 2,
+      ease: "expo.out",
+    });
+
+    gsap.from("#para2", {
+      scrollTrigger: {
+        trigger: ".section",
+        start: "top 40%",
+        end: "bottom 70%",
+        scrub: 1,
+        markers: false,
+      },
+      opacity: 0,
+      yPercent: -50,
+      duration: 2,
+      ease: "expo.out",
+    });
+
+    gsap.from(".img", {
+      scrollTrigger: {
+        trigger: ".section",
+        start: "top 50%",
+        end: "bottom 70%",
+        scrub: 1,
+        markers: false,
+      },
+      opacity: 0,
+      xPercent: -50,
+      duration: 2,
+      ease: "expo.out",
+    });
+  }, []);
+
   return (
     <section
-      className={`flex justify-center items-center lg:items-start flex-col lg:space-y-30 xl:space-y-15 min-h-screen paddingx-mobile lg:paddingx md:py-20 ${className}`}
+      className={`section flex justify-center items-center lg:items-start flex-col lg:space-y-30 xl:space-y-15 min-h-screen paddingx-mobile lg:paddingx md:py-20 ${className}`}
     >
       <h1 className="font-bold text-6xl pl-10 text-center hidden lg:block">
         WHO WE <br className="sm:hidden" /> ARE
       </h1>
 
       <div className="flex flex-col lg:flex-row space-y-10 lg:space-x-30">
-        <div className="flex-center relative">
+        <div className="img flex-center relative">
           <img
             src="src/assets/img/chef.jpg"
             alt="chef-cooking"
-            className="rounded-[10%] md:rounded-[30%] h-[18rem] md:h-[24rem] md:w-[24rem] lg:h-[34rem] lg:max-w-[37.875rem] 2xl:h-[32rem]"
+            className="rounded-[10%] md:rounded-[30%] h-[18rem] md:h-[24rem] md:w-[24rem] lg:h-[32rem] lg:max-w-[37.875rem] 2xl:h-[32rem]"
           />
           <img
             src="src/assets/img/ingredient.jpg"
@@ -26,12 +76,12 @@ const About = ({ className }) => {
         </h1>
 
         <div className="sm:text-2xl max-w-[59.1875rem]">
-          <p className="text-justify md:pt-30 xl:pt-40">
+          <p id="para1" className="text-justify md:pt-30 xl:pt-35">
             At NutriBox, we are committed to providing a solution for everyone
             who wants to eat healthy without compromising on flavor.
           </p>
           <br />
-          <p className="xl:pt-30 xl:pl-20">
+          <p id="para2" className="xl:pt-30 xl:pl-20">
             Every box is carefully prepared with fresh ingredients and balanced
             nutrition—just for you
           </p>

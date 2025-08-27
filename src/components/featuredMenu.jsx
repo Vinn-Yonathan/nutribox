@@ -43,7 +43,7 @@ const FeaturedMenu = () => {
   };
 
   return (
-    <section className="flex-center flex-col lg:space-y-30 space-y-15 min-h-screen paddingx-mobile lg:paddingx py-20">
+    <section className="flex-center flex-col space-y-15 min-h-screen paddingx-mobile lg:paddingx py-20">
       <div className="flex justify-center lg:justify-between items-center flex-wrap w-full font-bold text-6xl md:text-7xl md:space-x-10 mb-20">
         <h1>FEATURED</h1>
         <hr className="w-1/2 md:w-1/4 hidden md:block" />

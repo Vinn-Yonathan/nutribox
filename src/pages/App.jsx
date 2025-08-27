@@ -15,18 +15,18 @@ function App() {
         trigger: ".about",
         start: "top 90%",
         end: "top 91%",
-        scrub: 1,
-        markers: true,
+        scrub: true,
+        markers: false,
       },
       backdropFilter: "blur(8px)",
-      backgroundColor: "rgba(255,255,255,0.5)",
-      duration: 0.3,
+      // backgroundColor: "rgba(255,255,255,0.5)",
       ease: "power4.out",
+      duration: 0.3,
     });
   }, []);
 
   return (
-    <main className="w-full flex flex-col space-y-10">
+    <main className="w-full flex flex-col space-y-10 text-text bg-background">
       <NavBar className="nav" />
       <Hero className="hero" />
       <About className="about" />

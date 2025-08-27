@@ -45,7 +45,7 @@ const CardFM = ({ src, title, desc }) => {
   };
 
   return (
-    <div className="flex flex-col w-64 h-80 xl:w-74 xl:h-100 bg-background rounded-xl shadow-md">
+    <div className="flex flex-col w-64 h-80 xl:w-74 xl:h-100 bg-card rounded-xl shadow-md/50">
       <img
         src={src}
         alt="menu-image"

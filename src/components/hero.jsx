@@ -83,7 +83,7 @@ const Hero = ({ classname = "" }) => {
         </p>
       </button>
 
-      <div className="-z-10">
+      <div>
         <img
           className="hidden md:block h-[32rem] -translate-y-24 "
           src="src/assets/img/box.png"

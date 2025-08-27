@@ -36,6 +36,7 @@
 
 :root {
   --background: white;
+  --card: rgb(233, 233, 233);
   --text: black;
   --primary: #468585;
   --secondary: #50b498;
@@ -46,7 +47,8 @@
 }
 
 .dark {
-  --background: #15141f;
+  --background: #1d1c2d;
+  --card: #070714;
   --text: white;
   --primary: #9cdba6;
   --secondary: #def9c4;
