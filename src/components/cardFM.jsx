@@ -51,14 +51,14 @@ const CardFM = ({ src, title, desc }) => {
         alt="menu-image"
         className="w-full h-1/2 object-cover rounded-t-xl"
       />
-      <div className="px-3 py-4 gap-1 xl:gap-3 flex flex-col">
+      <div className="px-3 py-4 gap-2 xl:gap-3 flex flex-col">
         <h6 className="font-fraunces text-2xl gradient-text font-bold">
           {title}
         </h6>
         <p className="text-xs">{desc}</p>
         <button
           ref={btnRef}
-          className="btn self-end px-[1em] font-poppins py-[0.5em] xl:mx-3 border-2 rounded-full flex-center space-x-1"
+          className="btn self-end px-[1em] font-poppins py-[.1em] md:py-[0.5em] xl:mx-3 border-2 rounded-full flex-center space-x-1"
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
         >

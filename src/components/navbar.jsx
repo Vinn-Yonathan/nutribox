@@ -19,16 +19,16 @@ const NavBar = ({ className }) => {
             <X color="var(--text)" size={35} />
           </button>
           <div className="flex-center flex-col space-y-10 text-5xl content-center">
-            <a href="#" className="font-jomhuria">
+            <a href="#" className="font-jomhuria hover:text-slate-100">
               ABOUT
             </a>
-            <a href="#" className="font-jomhuria">
+            <a href="#" className="font-jomhuria hover:text-slate-100">
               EVENT
             </a>
-            <Link href="#" className="font-jomhuria">
+            <Link href="#" className="font-jomhuria hover:text-slate-100">
               MENU
             </Link>
-            <a href="#" className="font-jomhuria">
+            <a href="#" className="font-jomhuria hover:text-slate-100">
               CART
             </a>
           </div>

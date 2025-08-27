@@ -1,10 +1,49 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
+import { useRef } from "react";
 
 gsap.registerPlugin(SplitText);
 
 const Hero = ({ classname = "" }) => {
+  const btnRef = useRef(null);
+  const contentRef = useRef(null);
+
+  const handleEnter = () => {
+    gsap.to(btnRef.current, {
+      scale: 1.01,
+      paddingLeft: "6.2em",
+      paddingRight: "6.2em",
+      background: "var(--secondaryGradient)",
+      duration: 0.3,
+      ease: "power4.out",
+      yoyo: true,
+    });
+
+    gsap.to(contentRef.current, {
+      duration: 0.3,
+      rotateX: 360,
+      ease: "expo.out",
+      yoyo: true,
+    });
+  };
+  const handleLeave = () => {
+    gsap.to(btnRef.current, {
+      scale: 1,
+      background: "",
+      duration: 0.3,
+      paddingLeft: "6em",
+      paddingRight: "6em",
+      ease: "power4.out",
+    });
+
+    gsap.to(contentRef.current, {
+      duration: 0.1,
+      rotateX: 0,
+      ease: "power4.out",
+    });
+  };
+
   useGSAP(() => {
     const heroSplit = new SplitText(".hero-title", {
       type: "chars",
@@ -20,21 +59,6 @@ const Hero = ({ classname = "" }) => {
       ease: "expo.out",
       stagger: 0.04,
     });
-    gsap.from(".hero-btn ", {
-      // opacity: 0,
-      // y: 20,
-      // scale: 0.8,
-      // duration: 0.8,
-      // ease: "expo.out",
-      // immediateRender: false,
-      y: 50, // jangan terlalu jauh
-      scale: 0.8,
-      opacity: 0,
-      duration: 0.8,
-      ease: "expo.out", // samakan dengan teks
-      delay: 1.0, // sedikit jeda setelah teks
-      immediateRender: false,
-    });
   });
 
   return (
@@ -43,13 +67,20 @@ const Hero = ({ classname = "" }) => {
     >
       <h1 className="hero-title text-6xl lg:text-7xl font-black">
         GOODNESS PREPARED <br />
-        IN <span className="text-primary">EVERY BOX</span>
+        IN <span className="gradient-text">EVERY BOX</span>
       </h1>
 
       <p className="hero-desc">Freshly-made everyday just for you </p>
 
-      <button className="hero-btn font-poppins px-[6em] py-[1em] rounded-full font-medium text-lg bg-transparent border-2 hover:bg-secondary hover:text-white transition duration-100 ease-in">
-        Order Now
+      <button
+        className="hero-btn px-[6em] py-[1em] rounded-full bg-transparent border-2"
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+        ref={btnRef}
+      >
+        <p className="font-poppins font-medium text-lg" ref={contentRef}>
+          Order Now
+        </p>
       </button>
 
       <div className="-z-10">
