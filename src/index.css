@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Jomhuria&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-fraunces: "Fraunces", serif;
+  --font-poppins: "poppins", sans-serif;
+  --font-jomhuria: "Jomhuria", serif;
+  --color-background: var(--background);
+  --color-text: var(--text);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-primaryGradient: var(--primaryGradient);
+}
+
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
+
+@utility paddingx {
+  padding-left: 7.875rem;
+  padding-right: 7.875rem;
+}
+
+@utility paddingx-mobile {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+@utility gradient-text {
+  background: var(--tertiaryGradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+:root {
+  --background: white;
+  --text: black;
+  --primary: #468585;
+  --secondary: #50b498;
+  --tertiary: #0fdd00;
+  --primaryGradient: linear-gradient(145deg, #468585, #50b498);
+  --secondaryGradient: linear-gradient(145deg, #50b498, #0fdd00);
+  --tertiaryGradient: linear-gradient(145deg, #468585, #0fdd00);
+}
+
+.dark {
+  --background: #15141f;
+  --text: white;
+  --primary: #9cdba6;
+  --secondary: #def9c4;
+  --tertiary: #0fdd00;
+  --primaryGradient: linear-gradient(145deg, #9cdba6, #def9c4);
+  --secondaryGradient: linear-gradient(145deg, #def9c4, #0fdd00);
+  --tertiaryGradient: linear-gradient(145deg, #9cdba6, #0fdd00);
+}
+
+html,
+body {
+  width: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  @apply font-fraunces;
+}
+
+p,
+span,
+div {
+  @apply font-poppins;
+}
