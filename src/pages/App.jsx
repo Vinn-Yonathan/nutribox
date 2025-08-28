@@ -13,13 +13,12 @@ function App() {
     gsap.to(".nav", {
       scrollTrigger: {
         trigger: ".about",
-        start: "top 90%",
-        end: "top 91%",
+        start: "top 95%",
+        end: "top 96%",
         scrub: true,
         markers: false,
       },
       backdropFilter: "blur(8px)",
-      // backgroundColor: "rgba(255,255,255,0.5)",
       ease: "power4.out",
       duration: 0.3,
     });

@@ -14,7 +14,6 @@ const Hero = ({ classname = "" }) => {
       scale: 1.01,
       paddingLeft: "6.2em",
       paddingRight: "6.2em",
-      background: "var(--secondaryGradient)",
       duration: 0.3,
       ease: "power4.out",
       yoyo: true,
@@ -30,7 +29,6 @@ const Hero = ({ classname = "" }) => {
   const handleLeave = () => {
     gsap.to(btnRef.current, {
       scale: 1,
-      background: "",
       duration: 0.3,
       paddingLeft: "6em",
       paddingRight: "6em",
@@ -73,7 +71,7 @@ const Hero = ({ classname = "" }) => {
       <p className="hero-desc">Freshly-made everyday just for you </p>
 
       <button
-        className="hero-btn px-[6em] py-[1em] rounded-full bg-transparent border-2"
+        className="btn-gradient px-[6em] py-[1em] border-2 rounded-full z-5"
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
         ref={btnRef}

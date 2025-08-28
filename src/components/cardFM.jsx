@@ -13,7 +13,7 @@ const CardFM = ({ src, title, desc }) => {
       scale: 1.01,
       paddingLeft: "1.2em",
       paddingRight: "1.2em",
-      background: "var(--secondaryGradient)",
+      background: "var(--primary-secondary-gradient)",
       duration: 0.3,
       ease: "power4.out",
       yoyo: true,
@@ -45,7 +45,7 @@ const CardFM = ({ src, title, desc }) => {
   };
 
   return (
-    <div className="flex flex-col w-64 h-80 xl:w-74 xl:h-100 bg-card rounded-xl shadow-md/50">
+    <div className="flex flex-col w-64 h-80 xl:w-74 xl:h-100 bg-surface rounded-xl shadow-text-muted shadow-md/20">
       <img
         src={src}
         alt="menu-image"
@@ -55,14 +55,17 @@ const CardFM = ({ src, title, desc }) => {
         <h6 className="font-fraunces text-2xl gradient-text font-bold">
           {title}
         </h6>
-        <p className="text-xs">{desc}</p>
+        <p className="text-xs text-muted">{desc}</p>
         <button
           ref={btnRef}
-          className="btn self-end px-[1em] font-poppins py-[.1em] md:py-[0.5em] xl:mx-3 border-2 rounded-full flex-center space-x-1"
+          className="self-end px-[1em] font-poppins py-[.1em] md:py-[0.3em] xl:mx-3 border-2 rounded-full flex-center space-x-1 mt-3"
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
         >
-          <p ref={contentRef} className="btn-content text-xs font-bold">
+          <p
+            ref={contentRef}
+            className="btn-content text-[0.65rem] font-medium"
+          >
             Menu details
           </p>
           <MoveRight

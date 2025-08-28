@@ -12,7 +12,7 @@ const menus = [
     id: 2,
     title: "Ruby Ice Delight",
     desc: "A classic red bean ice treat, reimagined the NutriBox way — refreshing, nutritious, and guilt-free.",
-    src: "src/assets/img/ruby.png",
+    src: "src/assets/img/ruby.jpg",
     calories: 350,
     price: 8.99,
     featured: true,
