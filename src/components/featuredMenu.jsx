@@ -2,16 +2,64 @@ import { useRef } from "react";
 import menus from "../data/featuredMenu";
 import CardFM from "./cardFM";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
+gsap.registerPlugin(ScrollTrigger);
 const FeaturedMenu = () => {
   const btnRef = useRef(null);
   const contentRef = useRef(null);
+
+  useGSAP(() => {
+    gsap.from(".menu", {
+      scrollTrigger: {
+        trigger: ".section-fm",
+        start: "top 70%",
+        end: "center 80%",
+        markers: false,
+        scrub: 1,
+      },
+      opacity: 0,
+      yPercent: 10,
+      duration: 2,
+      ease: "expo.out",
+    });
+
+    gsap.from("#fm-title-1", {
+      scrollTrigger: {
+        trigger: ".section-fm",
+        start: "top 95%",
+        end: "center 85%",
+        markers: true,
+        scrub: 1,
+      },
+      opacity: 0,
+      xPercent: -25,
+      duration: 1.2,
+      ease: "expo.out",
+    });
+
+    gsap.from("#fm-title-2", {
+      scrollTrigger: {
+        trigger: ".section-fm",
+        start: "top 95%",
+        end: "center 85%",
+        markers: true,
+        scrub: 1,
+      },
+      opacity: 0,
+      xPercent: 25,
+      duration: 1.2,
+      ease: "expo.out",
+    });
+  });
 
   const handleEnter = () => {
     gsap.to(btnRef.current, {
       scale: 1.01,
       paddingLeft: "5.2em",
       paddingRight: "5.2em",
+      background: "var(--primary-secondary-gradient)",
       duration: 0.3,
       ease: "power4.out",
       yoyo: true,
@@ -42,14 +90,14 @@ const FeaturedMenu = () => {
   };
 
   return (
-    <section className="flex-center flex-col space-y-20 min-h-screen paddingx-mobile lg:paddingx py-20">
+    <section className="section-fm flex-center flex-col space-y-20 min-h-screen paddingx-mobile lg:paddingx py-20">
       <div className="flex justify-center lg:justify-between items-center flex-wrap w-full font-bold text-6xl md:text-7xl md:space-x-10 ">
-        <h1>FEATURED</h1>
+        <h1 id="fm-title-1">FEATURED</h1>
         <hr className="w-1/2 md:w-1/4 hidden md:block" />
-        <h1>MENU</h1>
+        <h1 id="fm-title-2">MENU</h1>
       </div>
 
-      <div className="flex items-center justify-center md:justify-between flex-wrap md:space-x-30 space-y-10 md:space-y-0">
+      <div className="menu flex items-center justify-center md:justify-between flex-wrap md:space-x-30 space-y-10 md:space-y-0">
         {menus
           .filter((menu) => menu.featured)
           .map((menu) => (

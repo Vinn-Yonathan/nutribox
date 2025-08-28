@@ -6,9 +6,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const About = ({ className }) => {
   useGSAP(() => {
-    gsap.from("#para1", {
+    gsap.from("#about-para-1", {
       scrollTrigger: {
-        trigger: ".section",
+        trigger: ".section-about",
         start: "top 50%",
         end: "bottom 70%",
         scrub: 1,
@@ -20,9 +20,9 @@ const About = ({ className }) => {
       ease: "expo.out",
     });
 
-    gsap.from("#para2", {
+    gsap.from("#about-para-2", {
       scrollTrigger: {
-        trigger: ".section",
+        trigger: ".section-about",
         start: "top 40%",
         end: "bottom 70%",
         scrub: 1,
@@ -36,7 +36,7 @@ const About = ({ className }) => {
 
     gsap.from(".img", {
       scrollTrigger: {
-        trigger: ".section",
+        trigger: ".section-about",
         start: "top 50%",
         end: "bottom 70%",
         scrub: 1,
@@ -51,7 +51,7 @@ const About = ({ className }) => {
 
   return (
     <section
-      className={`section flex justify-center items-center lg:items-start flex-col lg:space-y-30 xl:space-y-15 min-h-screen paddingx-mobile lg:paddingx md:py-20 ${className}`}
+      className={`section-about flex justify-center items-center lg:items-start flex-col lg:space-y-30 xl:space-y-15 min-h-screen paddingx-mobile lg:paddingx md:py-20 ${className}`}
     >
       <h1 className="font-bold text-6xl pl-10 text-center hidden lg:block">
         WHO WE <br className="sm:hidden" /> ARE
@@ -76,12 +76,12 @@ const About = ({ className }) => {
         </h1>
 
         <div className="sm:text-2xl max-w-[59.1875rem]">
-          <p id="para1" className="text-justify md:pt-30 xl:pt-35">
+          <p id="about-para-1" className="text-justify md:pt-30 xl:pt-35">
             At NutriBox, we are committed to providing a solution for everyone
             who wants to eat healthy without compromising on flavor.
           </p>
           <br />
-          <p id="para2" className="xl:pt-30 xl:pl-20">
+          <p id="about-para-2" className="xl:pt-30 xl:pl-20">
             Every box is carefully prepared with fresh ingredients and balanced
             nutrition—just for you
           </p>
