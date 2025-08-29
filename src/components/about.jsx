@@ -12,6 +12,7 @@ const About = ({ className }) => {
         start: "top 50%",
         end: "bottom 70%",
         scrub: 1,
+        once: true,
         markers: false,
       },
       opacity: 0,
@@ -26,6 +27,7 @@ const About = ({ className }) => {
         start: "top 40%",
         end: "bottom 70%",
         scrub: 1,
+        once: true,
         markers: false,
       },
       opacity: 0,
@@ -40,6 +42,7 @@ const About = ({ className }) => {
         start: "top 50%",
         end: "bottom 70%",
         scrub: 1,
+        once: true,
         markers: false,
       },
       opacity: 0,
@@ -53,9 +56,9 @@ const About = ({ className }) => {
     <section
       className={`section-about flex justify-center items-center lg:items-start flex-col lg:space-y-30 xl:space-y-15 min-h-screen paddingx-mobile lg:paddingx md:py-20 ${className}`}
     >
-      <h1 className="font-bold text-6xl pl-10 text-center hidden lg:block">
+      <h2 className="font-bold text-6xl pl-10 text-center hidden lg:block">
         WHO WE <br className="sm:hidden" /> ARE
-      </h1>
+      </h2>
 
       <div className="flex flex-col lg:flex-row space-y-10 lg:space-x-30">
         <div className="img flex-center relative">
@@ -71,9 +74,9 @@ const About = ({ className }) => {
           />
         </div>
 
-        <h1 className="font-bold text-5xl md:text-6xl text-center lg:hidden">
+        <h2 className="font-bold text-5xl md:text-6xl text-center lg:hidden">
           WHO WE <br className="sm:hidden" /> ARE
-        </h1>
+        </h2>
 
         <div className="sm:text-2xl max-w-[59.1875rem]">
           <p id="about-para-1" className="text-justify md:pt-30 xl:pt-35">

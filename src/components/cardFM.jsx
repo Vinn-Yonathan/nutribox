@@ -45,29 +45,28 @@ const CardFM = ({ src, title, desc }) => {
   };
 
   return (
-    <div className="flex flex-col w-64 h-80 xl:w-74 xl:h-100 bg-surface rounded-xl shadow-text-muted shadow-md/20">
+    <article className="flex flex-col w-64 h-80 xl:w-74 xl:h-100 bg-surface rounded-xl shadow-text-muted shadow-md/20">
       <img
         src={src}
-        alt="menu-image"
+        alt={`image of ${title}`}
         className="w-full h-1/2 object-cover rounded-t-xl"
       />
       <div className="px-3 py-4 gap-2 xl:gap-3 flex flex-col">
-        <h6 className="font-fraunces text-2xl gradient-text font-bold">
-          {title}
-        </h6>
+        <h3 className="text-2xl gradient-text font-bold">{title}</h3>
         <p className="text-xs text-muted">{desc}</p>
         <button
           ref={btnRef}
           className="self-end px-[1em] font-poppins py-[.1em] md:py-[0.3em] xl:mx-3 border-2 rounded-full flex-center space-x-1 mt-3"
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
+          aria-label="Menu details"
         >
-          <p
+          <span
             ref={contentRef}
             className="btn-content text-[0.65rem] font-medium"
           >
             Menu details
-          </p>
+          </span>
           <MoveRight
             ref={iconRef}
             fill="black"
@@ -76,7 +75,7 @@ const CardFM = ({ src, title, desc }) => {
           />
         </button>
       </div>
-    </div>
+    </article>
   );
 };
 

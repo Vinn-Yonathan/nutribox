@@ -25,12 +25,16 @@ function App() {
   }, []);
 
   return (
-    <main className="w-full flex flex-col space-y-10 text-text bg-background">
-      <NavBar className="nav" />
-      <Hero className="hero" />
-      <About className="about" />
-      <FeaturedMenu />
-    </main>
+    <>
+      <header className="w-full">
+        <NavBar className="nav" />
+      </header>
+      <main className="w-full flex flex-col space-y-10">
+        <Hero className="hero" />
+        <About className="about" />
+        <FeaturedMenu />
+      </main>
+    </>
   );
 }
 

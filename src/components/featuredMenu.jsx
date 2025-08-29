@@ -17,6 +17,7 @@ const FeaturedMenu = () => {
         start: "top 70%",
         end: "center 80%",
         markers: false,
+        once: true,
         scrub: 1,
       },
       opacity: 0,
@@ -31,6 +32,7 @@ const FeaturedMenu = () => {
         start: "top 95%",
         end: "center 85%",
         markers: true,
+        once: true,
         scrub: 1,
       },
       opacity: 0,
@@ -45,6 +47,7 @@ const FeaturedMenu = () => {
         start: "top 95%",
         end: "center 85%",
         markers: true,
+        once: true,
         scrub: 1,
       },
       opacity: 0,
@@ -91,11 +94,11 @@ const FeaturedMenu = () => {
 
   return (
     <section className="section-fm flex-center flex-col space-y-20 min-h-screen paddingx-mobile lg:paddingx py-20">
-      <div className="flex justify-center lg:justify-between items-center flex-wrap w-full font-bold text-6xl md:text-7xl md:space-x-10 ">
-        <h1 id="fm-title-1">FEATURED</h1>
+      <h2 className="flex justify-center font-fraunces lg:justify-between items-center flex-wrap w-full font-bold text-6xl md:text-7xl md:space-x-10 ">
+        <span id="fm-title-1">FEATURED</span>
         <hr className="w-1/2 md:w-1/4 hidden md:block" />
-        <h1 id="fm-title-2">MENU</h1>
-      </div>
+        <span id="fm-title-2">MENU</span>
+      </h2>
 
       <div className="menu flex items-center justify-center md:justify-between flex-wrap md:space-x-30 space-y-10 md:space-y-0">
         {menus
@@ -115,13 +118,14 @@ const FeaturedMenu = () => {
         className="px-[5em] py-[0.5em] border-2 w-fit rounded-full"
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
+        aria-label="Discover more meals"
       >
-        <p
+        <span
           ref={contentRef}
           className="text-lg md:text-xl font-poppins font-medium"
         >
           Discover more meals
-        </p>
+        </span>
       </button>
     </section>
   );

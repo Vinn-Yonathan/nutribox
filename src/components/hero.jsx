@@ -56,6 +56,7 @@ const Hero = ({ classname = "" }) => {
       duration: 0.8,
       ease: "expo.out",
       stagger: 0.04,
+      repeat: 0,
     });
   });
 
@@ -76,26 +77,26 @@ const Hero = ({ classname = "" }) => {
         onMouseLeave={handleLeave}
         ref={btnRef}
       >
-        <p className="font-poppins font-medium text-lg" ref={contentRef}>
+        <span className="font-poppins font-medium text-lg" ref={contentRef}>
           Order Now
-        </p>
+        </span>
       </button>
 
       <div>
         <img
           className="hidden md:block h-[32rem] -translate-y-24 "
           src="src/assets/img/box.png"
-          alt="bento box"
+          alt=""
         />
         <img
           className="h-[23rem] lg:h-[36rem] xl:h-[46rem] absolute -top-30 lg:-top-40 -left-40"
           src="src/assets/img/granola.png"
-          alt="granola"
+          alt=""
         />
         <img
           className="h-[10rem] md:h-[20rem] xl:h-[24rem] absolute top-130 md:top-80 right-0 rotate-270"
           src="src/assets/img/cabbage.png"
-          alt="cabbage"
+          alt=""
         />
       </div>
     </section>
