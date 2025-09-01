@@ -94,16 +94,16 @@ const FeaturedMenu = () => {
 
   return (
     <section
-      className=" flex-center flex-col space-y-20 min-h-screen paddingx-mobile lg:paddingx py-20"
+      className="flex-center flex-col space-y-20 min-h-screen paddingx-mobile sm:paddingx-tablet xl:paddingx py-20"
       id="section-fm"
     >
-      <h2 className="flex justify-center font-fraunces lg:justify-between items-center flex-wrap w-full font-bold text-6xl md:text-7xl md:space-x-10 ">
+      <h2 className="flex flex-col md:flex-row justify-center font-fraunces lg:justify-between items-center w-full font-bold text-6xl md:text-7xl md:space-x-10 ">
         <span id="fm-title-1">FEATURED</span>
         <hr className="w-1/2 md:w-1/4 hidden md:block" />
         <span id="fm-title-2">MENU</span>
       </h2>
 
-      <div className="menu flex items-center justify-center md:justify-between flex-wrap md:space-x-30 space-y-10 md:space-y-0">
+      <div className="menu flex flex-col md:flex-row flex-wrap items-center justify-center md:justify-between md:gap-x-2 lg:gap-x-15 xl:gap-x-18 2xl:gap-x-30 gap-y-10">
         {menus
           .filter((menu) => menu.featured)
           .map((menu) => (
