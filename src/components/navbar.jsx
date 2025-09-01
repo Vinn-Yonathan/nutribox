@@ -1,17 +1,33 @@
 import { Link } from "react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Clover } from "lucide-react";
 import { X } from "lucide-react";
 import { Sun } from "lucide-react";
 import { Moon } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const NavBar = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const btnThemeMobileRef = useRef();
+  const btnThemeDekstopRef = useRef();
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
+
+  useGSAP(() => {
+    gsap.fromTo(
+      [btnThemeMobileRef.current, btnThemeDekstopRef.current],
+      { rotateY: 0 },
+      {
+        rotateY: 360,
+        duration: 1,
+        ease: "expo.out",
+      }
+    );
+  }, [isDark]);
 
   const handleDark = () => {
     setIsDark(!isDark);
@@ -103,8 +119,9 @@ const NavBar = ({ className }) => {
             <li>
               <button
                 onClick={handleDark}
-                className="pb-[0.375rem]"
+                className="pt-[0.4rem]"
                 aria-label="Toggle Dark Mode"
+                ref={btnThemeDekstopRef}
               >
                 {isDark ? (
                   <Sun size={25} color="gold"></Sun>
@@ -115,8 +132,13 @@ const NavBar = ({ className }) => {
             </li>
           </ul>
 
+          {/* Mobile Nav Button */}
           <div className="md:hidden flex-center space-x-4">
-            <button onClick={handleDark} aria-label="Toggle Dark Mode">
+            <button
+              ref={btnThemeMobileRef}
+              onClick={handleDark}
+              aria-label="Toggle Dark Mode"
+            >
               {isDark ? (
                 <Sun size={30} color="gold"></Sun>
               ) : (
