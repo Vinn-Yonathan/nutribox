@@ -8,7 +8,7 @@ const About = ({ className }) => {
   useGSAP(() => {
     gsap.from("#about-para-1", {
       scrollTrigger: {
-        trigger: ".section-about",
+        trigger: "#section-about",
         start: "top 50%",
         end: "bottom 70%",
         scrub: 1,
@@ -23,7 +23,7 @@ const About = ({ className }) => {
 
     gsap.from("#about-para-2", {
       scrollTrigger: {
-        trigger: ".section-about",
+        trigger: "#section-about",
         start: "top 40%",
         end: "bottom 70%",
         scrub: 1,
@@ -38,7 +38,7 @@ const About = ({ className }) => {
 
     gsap.from(".img", {
       scrollTrigger: {
-        trigger: ".section-about",
+        trigger: "#section-about",
         start: "top 50%",
         end: "bottom 70%",
         scrub: 1,
@@ -54,7 +54,8 @@ const About = ({ className }) => {
 
   return (
     <section
-      className={`section-about flex justify-center items-center lg:items-start flex-col lg:space-y-30 xl:space-y-15 min-h-screen paddingx-mobile lg:paddingx md:py-20 ${className}`}
+      className={`flex justify-center items-center lg:items-start flex-col lg:space-y-30 xl:space-y-15 min-h-screen paddingx-mobile lg:paddingx md:py-20 ${className}`}
+      id="section-about"
     >
       <h2 className="font-bold text-6xl pl-10 text-center hidden lg:block">
         WHO WE <br className="sm:hidden" /> ARE

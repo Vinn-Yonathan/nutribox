@@ -20,7 +20,8 @@ const NavBar = ({ className }) => {
 
   return (
     <nav
-      className={`z-50 fixed top-0 w-full ${className} filter-none`}
+      className={`nav z-50 fixed top-0 w-full ${className} filter-none`}
+      id="navbar-main"
       aria-label="Main Navigation"
     >
       {isOpen ? (

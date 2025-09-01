@@ -63,6 +63,7 @@ const Hero = ({ classname = "" }) => {
   return (
     <section
       className={`relative h-screen pt-50 md:pt-30 flex items-center flex-col text-center overflow-hidden space-y-5 ${classname}`}
+      id="section-hero"
     >
       <h1 className="hero-title text-6xl lg:text-7xl font-black">
         GOODNESS PREPARED <br />

@@ -27,6 +27,11 @@
   padding-right: 7.875rem;
 }
 
+@utility paddingx-tablet {
+  padding-left: 4.5rem;
+  padding-right: 4.5rem;
+}
+
 @utility paddingx-mobile {
   padding-left: 3rem;
   padding-right: 3rem;

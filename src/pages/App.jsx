@@ -4,15 +4,16 @@ import About from "../components/about";
 import FeaturedMenu from "../components/featuredMenu";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
+import Quote from "../components/quote";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   useGSAP(() => {
-    gsap.to(".nav", {
+    gsap.to("#navbar-main", {
       scrollTrigger: {
-        trigger: ".about",
+        trigger: "#section-about",
         start: "top 95%",
         end: "top 96%",
         scrub: true,
@@ -33,6 +34,7 @@ function App() {
         <Hero className="hero" />
         <About className="about" />
         <FeaturedMenu />
+        <Quote />
       </main>
     </>
   );

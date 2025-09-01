@@ -13,7 +13,7 @@ const FeaturedMenu = () => {
   useGSAP(() => {
     gsap.from(".menu", {
       scrollTrigger: {
-        trigger: ".section-fm",
+        trigger: "#section-fm",
         start: "top 70%",
         end: "center 80%",
         markers: false,
@@ -28,7 +28,7 @@ const FeaturedMenu = () => {
 
     gsap.from("#fm-title-1", {
       scrollTrigger: {
-        trigger: ".section-fm",
+        trigger: "#section-fm",
         start: "top 95%",
         end: "center 85%",
         markers: true,
@@ -43,7 +43,7 @@ const FeaturedMenu = () => {
 
     gsap.from("#fm-title-2", {
       scrollTrigger: {
-        trigger: ".section-fm",
+        trigger: "#section-fm",
         start: "top 95%",
         end: "center 85%",
         markers: true,
@@ -93,7 +93,10 @@ const FeaturedMenu = () => {
   };
 
   return (
-    <section className="section-fm flex-center flex-col space-y-20 min-h-screen paddingx-mobile lg:paddingx py-20">
+    <section
+      className=" flex-center flex-col space-y-20 min-h-screen paddingx-mobile lg:paddingx py-20"
+      id="section-fm"
+    >
       <h2 className="flex justify-center font-fraunces lg:justify-between items-center flex-wrap w-full font-bold text-6xl md:text-7xl md:space-x-10 ">
         <span id="fm-title-1">FEATURED</span>
         <hr className="w-1/2 md:w-1/4 hidden md:block" />
