@@ -88,16 +88,19 @@ const Hero = ({ classname = "" }) => {
           className="hidden md:block h-[32rem] -translate-y-24 "
           src="src/assets/img/box.png"
           alt=""
+          loading="lazy"
         />
         <img
           className="h-[23rem] lg:h-[36rem] xl:h-[46rem] absolute -top-30 lg:-top-40 -left-40"
           src="src/assets/img/granola.png"
           alt=""
+          loading="lazy"
         />
         <img
           className="h-[10rem] md:h-[20rem] xl:h-[24rem] absolute top-130 md:top-80 right-0 rotate-270"
           src="src/assets/img/cabbage.png"
           alt=""
+          loading="lazy"
         />
       </div>
     </section>

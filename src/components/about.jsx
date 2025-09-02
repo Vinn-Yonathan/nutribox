@@ -67,11 +67,13 @@ const About = ({ className }) => {
             src="src/assets/img/chef.jpg"
             alt="chef-cooking"
             className="rounded-[10%] md:rounded-[30%] h-[18rem] md:h-[24rem] md:w-[24rem] lg:h-[32rem] lg:max-w-[37.875rem] 2xl:h-[32rem]"
+            loading="lazy"
           />
           <img
             src="src/assets/img/ingredient.jpg"
             alt="ingredients"
             className="hidden xl:block absolute -bottom-30 -right-30 rounded-[5rem] h-[16rem] w-[16rem] xl:h-[14rem] xl:w-[14rem]"
+            loading="lazy"
           />
         </div>
 

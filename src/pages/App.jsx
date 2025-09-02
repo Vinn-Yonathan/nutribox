@@ -28,14 +28,14 @@ function App() {
 
   return (
     <>
-      {/* <header className="w-full">
+      <header className="w-full">
         <NavBar className="nav" />
-      </header> */}
+      </header>
       <main className="w-full flex flex-col space-y-10">
-        {/* <Hero className="hero" />
+        <Hero className="hero" />
         <About className="about" />
         <FeaturedMenu />
-        <Quote /> */}
+        <Quote />
         <Location />
       </main>
     </>

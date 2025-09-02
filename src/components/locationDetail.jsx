@@ -1,6 +1,6 @@
-const LocationDetail = ({ location }) => {
+const LocationDetail = ({ location, className = "" }) => {
   return (
-    <div>
+    <div className={className}>
       <h3 className="text-base font-semibold">{location.title}</h3>
       <p className="text-sm">
         <span className="block">{location.address.streetAddress}</span>

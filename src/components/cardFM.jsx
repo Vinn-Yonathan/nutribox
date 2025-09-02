@@ -50,6 +50,7 @@ const CardFM = ({ src, title, desc }) => {
         src={src}
         alt={`image of ${title}`}
         className="w-full h-1/2 object-cover rounded-t-xl"
+        loading="lazy"
       />
       <div className="px-3 py-4 gap-2 xl:gap-3 flex flex-col">
         <h3 className="text-2xl gradient-text font-bold">{title}</h3>

@@ -5,6 +5,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const Quote = () => {
+  // Animation
   useGSAP(() => {
     gsap.from(".block-quote", {
       scrollTrigger: {
@@ -13,7 +14,7 @@ const Quote = () => {
         end: "center 40%",
         scrub: 1,
         once: true,
-        markers: true,
+        markers: false,
       },
       opacity: 0,
       yPercent: 10,
