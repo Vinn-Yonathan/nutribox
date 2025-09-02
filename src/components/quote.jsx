@@ -40,7 +40,7 @@ const Quote = () => {
           food taste good—it's about crafting meals that nourish and energize
           every person who enjoys them.”
         </p>
-        <footer className="font-fraunces self-end text-end text-md lg:text-xl xl:text-2xl font-medium">
+        <footer className="font-fraunces self-end text-end text-base lg:text-xl xl:text-2xl font-medium">
           <span className="block">Anthony Chang</span>
           <span className="block">Head Chef at Nutribox</span>
         </footer>

@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "title": "Main Store",
+    "address": {
+      "streetAddress": "742 Evergreen Terrace",
+      "city": "Springfield",
+      "state": "ZZ",
+      "postalCode": "000000",
+      "country": "USA"
+    }
+  },
+  {
+    "id": 2,
+    "title": "WA Outlet",
+    "address": {
+      "streetAddress": "55 Oakwood Road",
+      "city": "Westport",
+      "state": "WA",
+      "postalCode": "12345",
+      "country": "USA"
+    }
+  },
+  {
+    "id": 3,
+    "title": "TX Store",
+    "address": {
+      "streetAddress": "89 Riverbend Avenue",
+      "city": "Mocksville",
+      "state": "TX",
+      "postalCode": "75001",
+      "country": "USA"
+    }
+  }
+]

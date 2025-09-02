@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import menus from "../data/featuredMenu";
+import { useEffect, useRef, useState } from "react";
 import CardFM from "./cardFM";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -7,9 +6,18 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 const FeaturedMenu = () => {
+  const [menus, setMenus] = useState([]);
   const btnRef = useRef(null);
   const contentRef = useRef(null);
 
+  useEffect(() => {
+    fetch("data/featuredMenu.json")
+      .then((res) => res.json())
+      .then((data) => setMenus(data))
+      .catch((err) => console.error(err));
+  }, []);
+
+  // Animations
   useGSAP(() => {
     gsap.from(".menu", {
       scrollTrigger: {

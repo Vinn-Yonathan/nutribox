@@ -2,9 +2,10 @@ import NavBar from "../components/navbar";
 import Hero from "../components/hero";
 import About from "../components/about";
 import FeaturedMenu from "../components/featuredMenu";
+import Quote from "../components/quote";
+import Location from "../components/location";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
-import Quote from "../components/quote";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -27,14 +28,15 @@ function App() {
 
   return (
     <>
-      <header className="w-full">
+      {/* <header className="w-full">
         <NavBar className="nav" />
-      </header>
+      </header> */}
       <main className="w-full flex flex-col space-y-10">
-        <Hero className="hero" />
+        {/* <Hero className="hero" />
         <About className="about" />
         <FeaturedMenu />
-        <Quote />
+        <Quote /> */}
+        <Location />
       </main>
     </>
   );
