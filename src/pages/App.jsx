@@ -4,6 +4,7 @@ import About from "../components/about";
 import FeaturedMenu from "../components/featuredMenu";
 import Quote from "../components/quote";
 import Location from "../components/location";
+import Newsletter from "../components/newsletter";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -28,15 +29,16 @@ function App() {
 
   return (
     <>
-      <header className="w-full">
+      {/* <header className="w-full">
         <NavBar className="nav" />
-      </header>
+      </header> */}
       <main className="w-full flex flex-col space-y-10">
-        <Hero className="hero" />
+        {/* <Hero className="hero" />
         <About className="about" />
         <FeaturedMenu />
         <Quote />
-        <Location />
+        <Location /> */}
+        <Newsletter />
       </main>
     </>
   );
