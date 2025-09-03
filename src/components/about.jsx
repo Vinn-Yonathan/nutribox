@@ -57,7 +57,7 @@ const About = ({ className }) => {
       className={`flex justify-center items-center lg:items-start flex-col lg:space-y-30 xl:space-y-15 min-h-screen paddingx-mobile lg:paddingx md:py-20 ${className}`}
       id="section-about"
     >
-      <h2 className="font-bold text-6xl pl-10 text-center hidden lg:block">
+      <h2 className="font-bold font-fraunces text-6xl pl-10 text-center hidden lg:block">
         WHO WE <br className="sm:hidden" /> ARE
       </h2>
 
@@ -77,11 +77,11 @@ const About = ({ className }) => {
           />
         </div>
 
-        <h2 className="font-bold text-5xl md:text-6xl text-center lg:hidden">
+        <h2 className="font-bold font-fraunces text-5xl md:text-6xl text-center lg:hidden">
           WHO WE <br className="sm:hidden" /> ARE
         </h2>
 
-        <div className="sm:text-2xl max-w-[59.1875rem]">
+        <div className="sm:text-2xl max-w-[59.1875rem] font-poppins">
           <p id="about-para-1" className="text-justify md:pt-30 xl:pt-35">
             At NutriBox, we are committed to providing a solution for everyone
             who wants to eat healthy without compromising on flavor.

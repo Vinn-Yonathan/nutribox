@@ -36,7 +36,7 @@ const Quote = () => {
       />
       <blockquote className="block-quote max-w-[19rem] flex flex-col sm:self-center space-y-4 lg:space-y-10 lg:max-w-[26rem]">
         <h2 className="sr-only">Quote</h2>
-        <p className=" text-lg lg:text-2xl xl:text-3xl lg:leading-11">
+        <p className=" text-lg lg:text-2xl xl:text-3xl lg:leading-11 font-poppins">
           “As head chef at Nutribox, I believe cooking isn't just about making
           food taste good—it's about crafting meals that nourish and energize
           every person who enjoys them.”

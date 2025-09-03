@@ -65,12 +65,14 @@ const Hero = ({ classname = "" }) => {
       className={`relative h-screen pt-50 md:pt-30 flex items-center flex-col text-center overflow-hidden space-y-5 ${classname}`}
       id="section-hero"
     >
-      <h1 className="hero-title text-6xl lg:text-7xl font-black">
+      <h1 className="hero-title font-fraunces text-6xl lg:text-7xl font-black">
         GOODNESS PREPARED <br />
         IN <span className="gradient-text">EVERY BOX</span>
       </h1>
 
-      <p className="hero-desc">Freshly-made everyday just for you </p>
+      <p className="hero-desc font-poppins">
+        Freshly-made everyday just for you{" "}
+      </p>
 
       <button
         className="btn-gradient px-[6em] py-[1em] border-2 rounded-full z-5"

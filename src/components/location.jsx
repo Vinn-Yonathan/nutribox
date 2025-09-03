@@ -70,7 +70,7 @@ const Location = () => {
       />
       <div className="flex flex-col space-y-15">
         <h2
-          className="font-bold text-5xl leading-[4rem] md:text-7xl"
+          className="font-bold text-5xl leading-[4rem] md:text-7xl font-fraunces"
           id="location-title"
         >
           VISIT OUR <br /> STORE

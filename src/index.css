@@ -113,19 +113,6 @@ body {
   overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  @apply font-fraunces;
-}
-
-p,
-div {
-  @apply font-poppins;
-}
-
 .btn-gradient {
   background: var(--primary-secondary-gradient);
 }

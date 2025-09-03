@@ -53,8 +53,10 @@ const CardFM = ({ src, title, desc }) => {
         loading="lazy"
       />
       <div className="px-3 py-4 gap-2 xl:gap-3 flex flex-col">
-        <h3 className="text-2xl gradient-text font-bold">{title}</h3>
-        <p className="text-xs text-muted">{desc}</p>
+        <h3 className="font-fraunces text-2xl gradient-text font-bold">
+          {title}
+        </h3>
+        <p className="font-poppins text-xs text-muted">{desc}</p>
         <button
           ref={btnRef}
           className="self-end px-[1em] font-poppins py-[.1em] md:py-[0.3em] xl:mx-3 border-2 rounded-full flex-center space-x-1 mt-3"
