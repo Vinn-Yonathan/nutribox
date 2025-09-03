@@ -34,6 +34,21 @@ const NavBar = ({ className }) => {
     document.documentElement.classList.toggle("dark");
   };
 
+  const handleEnter = () => {
+    gsap.to(".icon-close", {
+      stroke: "var(--highlight)",
+      duration: 0.1,
+      ease: "expo.in",
+    });
+  };
+  const handleLeave = () => {
+    gsap.to(".icon-close", {
+      stroke: "var(--text)",
+      duration: 0.05,
+      ease: "power3.out",
+    });
+  };
+
   return (
     <nav
       className={`nav z-50 fixed top-0 w-full ${className} filter-none`}
@@ -41,35 +56,46 @@ const NavBar = ({ className }) => {
       aria-label="Main Navigation"
     >
       {isOpen ? (
-        <div className="w-screen h-[65vh] bg-secondary flex flex-col p-10 space-y-10 md:hidden backdrop-blur-sm">
+        <div className="w-screen h-[65vh] bg-primary rounded-b-4xl flex flex-col p-10 space-y-3 md:hidden">
           {/* Mobile navbar*/}
           <button
             className="self-end"
             onClick={handleOpen}
             aria-label="close menu"
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
           >
-            <X color="var(--text)" size={35} />
+            <X className="icon-close" stroke="var(--text)" size={35} />
           </button>
           <ul className="flex-center flex-col space-y-10 text-5xl content-center">
             <li>
-              <a href="#" className="font-jomhuria hover:text-slate-100">
+              <a
+                href="#section-about"
+                className="font-jomhuria hover:text-slate-100"
+              >
                 ABOUT
               </a>
             </li>
             <li>
-              <a href="#" className="font-jomhuria hover:text-slate-100">
-                EVENT
+              <a
+                href="#section-fm"
+                className="font-jomhuria hover:text-slate-100"
+              >
+                FEATURED MENU
               </a>
             </li>
             <li>
-              <Link href="#" className="font-jomhuria hover:text-slate-100">
-                MENU
-              </Link>
+              <a
+                href="#section-location"
+                className="font-jomhuria hover:text-slate-100"
+              >
+                LOCATION
+              </a>
             </li>
             <li>
-              <a href="#" className="font-jomhuria hover:text-slate-100">
+              <Link to="#" className="font-jomhuria hover:text-slate-100">
                 CART
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -77,7 +103,7 @@ const NavBar = ({ className }) => {
         // Dekstop navbar
         <div className="flex justify-between px-3 md:paddingx py-3">
           <a
-            href="#"
+            href="#section-hero"
             className="font-jomhuria text-5xl flex items-center gap-2"
           >
             NUTRIBOX
@@ -86,7 +112,7 @@ const NavBar = ({ className }) => {
           <ul className="hidden md:flex-center space-x-4 text-3xl">
             <li>
               <a
-                href="#"
+                href="#section-about"
                 className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
               >
                 ABOUT
@@ -94,27 +120,27 @@ const NavBar = ({ className }) => {
             </li>
             <li>
               <a
-                href="#"
+                href="#section-fm"
                 className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
               >
-                EVENT
+                FEATURED MENU
+              </a>
+            </li>
+            <li>
+              <a
+                href="#section-location"
+                className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
+              >
+                LOCATION
               </a>
             </li>
             <li>
               <Link
-                href="#"
-                className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
-              >
-                MENU
-              </Link>
-            </li>
-            <li>
-              <a
-                href="#"
+                to="#"
                 className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
               >
                 CART
-              </a>
+              </Link>
             </li>
             <li>
               <button
