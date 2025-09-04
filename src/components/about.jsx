@@ -54,7 +54,7 @@ const About = ({ className }) => {
 
   return (
     <section
-      className={`flex justify-center items-center lg:items-start flex-col lg:space-y-30 xl:space-y-15 min-h-screen paddingx-mobile lg:paddingx md:py-20 ${className}`}
+      className={`flex justify-center items-center lg:items-start flex-col lg:space-y-15 min-h-screen paddingx-mobile sm:paddingx-tablet lg:paddingx md:py-20 ${className}`}
       id="section-about"
     >
       <h2 className="font-bold font-fraunces text-6xl pl-10 text-center hidden lg:block">
@@ -65,14 +65,14 @@ const About = ({ className }) => {
         <div className="img flex-center relative">
           <img
             src="src/assets/img/chef.jpg"
-            alt="chef-cooking"
-            className="rounded-[10%] md:rounded-[30%] h-[18rem] md:h-[24rem] md:w-[24rem] lg:h-[32rem] lg:max-w-[37.875rem] 2xl:h-[32rem]"
+            alt="Chef cooking at Nutribox"
+            className="rounded-4xl lg:rounded-[15%] h-[18rem] md:h-[24rem] md:w-[24rem] lg:h-[32rem] lg:max-w-[37.875rem] 2xl:h-[32rem] object-cover"
             loading="lazy"
           />
           <img
             src="src/assets/img/ingredient.jpg"
             alt="ingredients"
-            className="hidden xl:block absolute -bottom-30 -right-30 rounded-[5rem] h-[16rem] w-[16rem] xl:h-[14rem] xl:w-[14rem]"
+            className="hidden lg:block absolute -bottom-30 -right-30 rounded-[5rem] h-[16rem] w-[16rem] xl:h-[14rem] xl:w-[14rem]"
             loading="lazy"
           />
         </div>
@@ -81,13 +81,13 @@ const About = ({ className }) => {
           WHO WE <br className="sm:hidden" /> ARE
         </h2>
 
-        <div className="sm:text-2xl max-w-[59.1875rem] font-poppins">
-          <p id="about-para-1" className="text-justify md:pt-30 xl:pt-35">
+        <div className="sm:text-lg lg:text-xl max-w-[59.1875rem] font-poppins">
+          <p id="about-para-1" className="text-justify lg:pt-30 xl:pt-35">
             At NutriBox, we are committed to providing a solution for everyone
             who wants to eat healthy without compromising on flavor.
           </p>
           <br />
-          <p id="about-para-2" className="xl:pt-30 xl:pl-20">
+          <p id="about-para-2" className="lg:pt-30 lg:pl-20">
             Every box is carefully prepared with fresh ingredients and balanced
             nutrition—just for you
           </p>

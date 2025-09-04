@@ -46,7 +46,7 @@ const Location = () => {
           end: "center 65%",
           scrub: 1,
           once: true,
-          markers: true,
+          markers: false,
         },
         opacity: 1,
         xPercent: 0,
@@ -59,13 +59,13 @@ const Location = () => {
 
   return (
     <section
-      className="flex-center w-full paddingx-mobile relative py-10 sm:space-x-10"
+      className="flex-center min-h-screen w-full paddingx-mobile relative sm:space-x-10"
       id="section-location"
     >
       <img
         src="src/assets/img/store.jpg"
         alt="Picture of Main Store"
-        className="absolute sm:static rounded-2xl -left-40 top-55 h-[24rem] sm:h-[26rem] sm:w-1/2 lg:h-[32rem] lg:w-2/3 object-cover"
+        className="absolute sm:static rounded-2xl -left-40 top-77 h-[24rem] sm:h-[26rem] sm:w-1/2 lg:h-[32rem] lg:w-2/3 object-cover"
         loading="lazy"
       />
       <div className="flex flex-col space-y-15">

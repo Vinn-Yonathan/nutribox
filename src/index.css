@@ -113,6 +113,10 @@ body {
   overflow-x: hidden;
 }
 
+.hero-title {
+  font-size: clamp(2.25rem, 8vw, 4.5rem);
+}
+
 .btn-gradient {
   background: var(--primary-secondary-gradient);
 }

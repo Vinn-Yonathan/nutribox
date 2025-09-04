@@ -101,16 +101,13 @@ const NavBar = ({ className }) => {
         </div>
       ) : (
         // Dekstop navbar
-        <div className="flex justify-between px-3 md:paddingx py-3">
-          <a
-            href="#section-hero"
-            className="font-jomhuria text-5xl flex items-center gap-2"
-          >
+        <div className="flex justify-between items-center px-3 md:paddingx py-3">
+          <a href="#section-hero" className="font-jomhuria text-5xl">
             NUTRIBOX
           </a>
 
           <ul className="hidden md:flex-center space-x-4 text-3xl">
-            <li>
+            <li className="flex-center">
               <a
                 href="#section-about"
                 className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
@@ -118,7 +115,7 @@ const NavBar = ({ className }) => {
                 ABOUT
               </a>
             </li>
-            <li>
+            <li className="flex-center">
               <a
                 href="#section-fm"
                 className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
@@ -126,7 +123,7 @@ const NavBar = ({ className }) => {
                 FEATURED MENU
               </a>
             </li>
-            <li>
+            <li className="flex-center">
               <a
                 href="#section-location"
                 className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
@@ -134,7 +131,7 @@ const NavBar = ({ className }) => {
                 LOCATION
               </a>
             </li>
-            <li>
+            <li className="flex-center">
               <Link
                 to="#"
                 className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
@@ -142,10 +139,10 @@ const NavBar = ({ className }) => {
                 CART
               </Link>
             </li>
-            <li>
+            <li className="flex-center">
               <button
                 onClick={handleDark}
-                className="pt-[0.4rem]"
+                className="pb-[0.3rem]"
                 aria-label="Toggle Dark Mode"
                 ref={btnThemeDekstopRef}
               >

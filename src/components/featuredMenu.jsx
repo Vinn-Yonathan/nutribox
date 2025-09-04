@@ -102,10 +102,10 @@ const FeaturedMenu = () => {
 
   return (
     <section
-      className="flex-center flex-col space-y-20 min-h-screen paddingx-mobile sm:paddingx-tablet xl:paddingx py-20"
+      className="flex-center flex-col space-y-20 min-h-screen paddingx-mobile sm:paddingx-tablet xl:paddingx md:py-20"
       id="section-fm"
     >
-      <h2 className="flex flex-col md:flex-row justify-center font-fraunces lg:justify-between items-center w-full font-bold text-6xl md:text-7xl md:space-x-10 ">
+      <h2 className="flex flex-col md:flex-row justify-center font-fraunces lg:justify-between items-center w-full font-bold text-5xl md:text-6xl md:space-x-10">
         <span id="fm-title-1">FEATURED</span>
         <hr className="w-1/2 md:w-1/4 hidden md:block" />
         <span id="fm-title-2">MENU</span>

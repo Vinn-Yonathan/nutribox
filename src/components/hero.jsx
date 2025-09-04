@@ -62,16 +62,16 @@ const Hero = ({ classname = "" }) => {
 
   return (
     <section
-      className={`relative h-screen pt-50 md:pt-30 flex items-center flex-col text-center overflow-hidden space-y-5 ${classname}`}
+      className={`relative min-h-screen pt-55 sm:pt-70 md:pt-40 lg:pt-35 flex items-center flex-col text-center overflow-hidden space-y-5 paddingx-mobile sm:paddingx-tablet lg:paddingx ${classname}`}
       id="section-hero"
     >
-      <h1 className="hero-title font-fraunces text-6xl lg:text-7xl font-black">
+      <h1 className="hero-title font-fraunces font-black break-words">
         GOODNESS PREPARED <br />
         IN <span className="gradient-text">EVERY BOX</span>
       </h1>
 
-      <p className="hero-desc font-poppins">
-        Freshly-made everyday just for you{" "}
+      <p className="hero-desc text-sm sm:text-base font-poppins">
+        Freshly-made everyday just for you
       </p>
 
       <button
@@ -80,7 +80,10 @@ const Hero = ({ classname = "" }) => {
         onMouseLeave={handleLeave}
         ref={btnRef}
       >
-        <span className="font-poppins font-medium text-lg" ref={contentRef}>
+        <span
+          className="font-poppins font-medium text-sm sm:text-lg"
+          ref={contentRef}
+        >
           Order Now
         </span>
       </button>
