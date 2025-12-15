@@ -18,6 +18,10 @@
   --color-primary-tertiary-gradient: var(--primary-tertiary-gradient);
 }
 
+/* body.auth-layout {
+  @apply h-screen flex flex-col;
+} */
+
 @utility flex-center {
   @apply flex items-center justify-center;
 }
@@ -35,6 +39,20 @@
 @utility paddingx-mobile {
   padding-left: 3rem;
   padding-right: 3rem;
+}
+@utility marginx {
+  margin-left: 7.875rem;
+  margin-right: 7.875rem;
+}
+
+@utility marginx-tablet {
+  margin-left: 4.5rem;
+  margin-right: 4.5rem;
+}
+
+@utility marginx-mobile {
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
 
 @utility gradient-text {
@@ -119,4 +137,24 @@ body {
 
 .btn-gradient {
   background: var(--primary-secondary-gradient);
+}
+
+.swal-bg {
+  background: var(--surface);
+}
+.swal-title-color {
+  color: var(--text);
+}
+.swal-confirm-color {
+  background: var(--primary);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+tr,
+td {
+  @apply border-y-2 border-text p-[.5em];
 }

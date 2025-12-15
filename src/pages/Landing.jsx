@@ -1,17 +1,17 @@
-import NavBar from "../components/navbar";
-import Hero from "../components/hero";
-import About from "../components/about";
-import FeaturedMenu from "../components/featuredMenu";
-import Quote from "../components/quote";
-import Location from "../components/location";
-import Footer from "../components/footer";
+import NavBar from "../components/landing/Navbar";
+import Hero from "../components/landing/hero";
+import About from "../components/landing/about";
+import FeaturedMenu from "../components/landing/featuredMenu";
+import Quote from "../components/landing/quote";
+import Location from "../components/landing/location";
+import Footer from "../components/landing/Footer";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function App() {
+function Landing() {
   useGSAP(() => {
     gsap.to("#navbar-main", {
       scrollTrigger: {
@@ -44,4 +44,4 @@ function App() {
   );
 }
 
-export default App;
+export default Landing;

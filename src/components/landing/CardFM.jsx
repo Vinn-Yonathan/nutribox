@@ -1,12 +1,14 @@
 import gsap from "gsap";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { MoveRight } from "lucide-react";
-// import { ReactComponent as ArrowRight } from "@src/assets/icons/arrow_right.svg";
 
 const CardFM = ({ src, title, desc }) => {
   const btnRef = useRef(null);
   const contentRef = useRef(null);
   const iconRef = useRef(null);
+  const serverURL = import.meta.env.VITE_API_BASE_URL;
+
+  console.log(`${serverURL}${src}`);
 
   const handleEnter = () => {
     gsap.to(btnRef.current, {
@@ -47,7 +49,7 @@ const CardFM = ({ src, title, desc }) => {
   return (
     <article className="flex flex-col w-64 h-80 xl:w-74 xl:h-100 bg-surface rounded-xl shadow-text-muted shadow-md/20">
       <img
-        src={src}
+        src={`${serverURL}${src}`}
         alt={`image of ${title}`}
         className="w-full h-1/2 object-cover rounded-t-xl"
         loading="lazy"

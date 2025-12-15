@@ -1,8 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import CardFM from "./cardFM";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { menuList } from "../../lib/api/MenuApi";
+import { useEffectOnce } from "react-use";
+import { Link } from "react-router";
+import CardFM from "./CardFM";
 
 gsap.registerPlugin(ScrollTrigger);
 const FeaturedMenu = () => {
@@ -10,12 +13,23 @@ const FeaturedMenu = () => {
   const btnRef = useRef(null);
   const contentRef = useRef(null);
 
-  useEffect(() => {
-    fetch("data/featuredMenu.json")
-      .then((res) => res.json())
-      .then((data) => setMenus(data))
-      .catch((err) => console.error(err));
-  }, []);
+  const getFeaturedMenu = async () => {
+    const response = await menuList({ isFeatured: 1 }, { size: 3 });
+    const responseBody = await response.json();
+    console.log(responseBody);
+
+    if (response.status === 200) {
+      console.log("Featured menu fetched successfully.");
+      setMenus(responseBody.data);
+      console.log("menus", menus);
+    } else {
+      console.log(responseBody.errors);
+    }
+  };
+
+  useEffectOnce(() => {
+    getFeaturedMenu();
+  });
 
   // Animations
   useGSAP(() => {
@@ -112,16 +126,14 @@ const FeaturedMenu = () => {
       </h2>
 
       <div className="menu flex flex-col md:flex-row flex-wrap items-center justify-center md:justify-between md:gap-x-2 lg:gap-x-15 xl:gap-x-18 2xl:gap-x-30 gap-y-10">
-        {menus
-          .filter((menu) => menu.featured)
-          .map((menu) => (
-            <CardFM
-              key={menu.id}
-              title={menu.title}
-              src={menu.src}
-              desc={menu.desc}
-            />
-          ))}
+        {menus.map((menu) => (
+          <CardFM
+            key={menu.id}
+            title={menu.name}
+            src={menu.image_src}
+            desc={menu.description}
+          />
+        ))}
       </div>
 
       <button
@@ -131,12 +143,13 @@ const FeaturedMenu = () => {
         onMouseLeave={handleLeave}
         aria-label="Discover more meals"
       >
-        <span
+        <Link
+          to={"/menus"}
           ref={contentRef}
           className="text-lg md:text-xl font-poppins font-medium"
         >
           Discover more meals
-        </span>
+        </Link>
       </button>
     </section>
   );
