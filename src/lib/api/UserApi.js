@@ -64,8 +64,8 @@ export const userLogout = async (accessToken) => {
 };
 
 export const userUpdate = async (
-  { firstName, lastName, email, address },
-  accessToken
+  { first_name, last_name, email, address },
+  accessToken,
 ) => {
   return await fetch(`${import.meta.env.VITE_API_PATH}/users/current`, {
     method: "PATCH",
@@ -75,8 +75,8 @@ export const userUpdate = async (
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
-      first_name: firstName,
-      last_name: lastName,
+      first_name: first_name,
+      last_name: last_name,
       email: email,
       address: address,
     }),
@@ -85,12 +85,12 @@ export const userUpdate = async (
 
 export const userUpdateById = async (
   id,
-  { firstName, lastName, address },
-  accessToken
+  { first_name, last_name, address },
+  accessToken,
 ) => {
-  console.log(firstName);
-  console.log(lastName);
-  console.log(address);
+  // console.log(first_name);
+  // console.log(last_name);
+  // console.log(address);
 
   return await fetch(`${import.meta.env.VITE_API_PATH}/users/${id}`, {
     method: "PATCH",
@@ -100,8 +100,8 @@ export const userUpdateById = async (
       Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
-      first_name: firstName,
-      last_name: lastName,
+      first_name: first_name,
+      last_name: last_name,
       address: address,
     }),
   });

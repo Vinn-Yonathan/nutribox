@@ -1,51 +1,72 @@
 import { ArrowLeft } from "lucide-react";
 import { Outlet } from "react-router";
 import { userDetail } from "../../lib/api/UserApi";
-import { useEffectOnce, useLocalStorage } from "react-use";
-import { useState } from "react";
-import { alertError } from "../../lib/alert";
+import { useLocalStorage } from "react-use";
 import BackButton from "../common/BackButton";
 import registerStoreImage from "../../assets/img/register-store.jpg";
+import NavBar from "../common/Navbar";
+import FooterInfo from "../common/FooterInfo";
+import { PuffLoader } from "react-spinners";
+import { useQuery } from "@tanstack/react-query";
 
 const UserLayout = () => {
   const [accessToken, _] = useLocalStorage("access-token", "");
-  const [user, setUser] = useState({});
 
-  const getUserDetail = async () => {
-    if (!accessToken) return;
-    const response = await userDetail(accessToken);
-    const responseBody = await response.json();
-    console.log(responseBody);
+  const {
+    data: user,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const response = await userDetail(accessToken);
+      const responseBody = await response.json();
+      console.log(responseBody);
 
-    if (response.status === 200) {
-      console.log("test");
-      setUser(responseBody.data);
-    } else {
-      console.log(responseBody.errors);
-      await alertError(Object.values(responseBody.errors).flat().join("\n"));
-    }
-  };
+      if (response.status !== 200) {
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      }
 
-  useEffectOnce(() => {
-    getUserDetail();
+      return responseBody.data;
+    },
+    enabled: !!accessToken,
   });
 
-  return (
-    <main className="w-screen min-h-screen relative flex-center">
-      <div
-        className="min-h-screen absolute inset-0 bg-cover opacity-25 -z-10"
-        style={{ backgroundImage: `url(${registerStoreImage})` }}
-      ></div>
+  const RenderContent = () => {
+    if (isLoading)
+      return (
+        <PuffLoader color="var(--primary)" className="self-center my-10" />
+      );
+    if (isError) return console.error(error.message);
 
-      <div className="w-full marginx-mobile md:marginx-tablet lg:marginx rounded-2xl relative bg-background flex justify-center flex-col">
-        <BackButton
-          className={
-            "self-start my-6 mx-12 hover:text-primary transition duration-200"
-          }
-        />
-        <Outlet context={{ user, getUserDetail }} />
-      </div>
-    </main>
+    return <Outlet context={{ user }} />;
+  };
+
+  return (
+    <div className="min-h-screen relative flex flex-col justify-between">
+      <header>
+        <NavBar />
+      </header>
+      <main className="w-screen mt-12 flex-center">
+        <div
+          className="min-h-screen absolute inset-0 bg-cover opacity-25 -z-10"
+          style={{ backgroundImage: `url(${registerStoreImage})` }}
+        ></div>
+
+        <div className="w-full mt-6 marginx-mobile md:marginx-tablet lg:marginx rounded-2xl relative bg-background flex justify-center flex-col">
+          {/* <BackButton
+            className={
+              "self-start mt-6 mx-12 hover:text-primary transition duration-200"
+            }
+          /> */}
+          <RenderContent />
+        </div>
+      </main>
+      <footer className="px-10">
+        <FooterInfo />
+      </footer>
+    </div>
   );
 };
 

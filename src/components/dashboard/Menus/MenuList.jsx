@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { menuDelete, menuList } from "../../../lib/api/MenuApi";
 import { alertConfirm, alertError, alertSuccess } from "../../../lib/alert";
 import { Button } from "../../common/Button";
@@ -11,9 +11,10 @@ import {
 } from "lucide-react";
 import MenuFilter from "../../common/MenuFilter";
 import { useLocalStorage, useSearchParam } from "react-use";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { PuffLoader } from "react-spinners";
 
 const MenuList = () => {
-  const [menus, setMenus] = useState([]);
   const [filter, setFilter] = useState({
     name: "",
     maxPrice: null,
@@ -25,8 +26,9 @@ const MenuList = () => {
   });
   const [page, setPage] = useState(Number(useSearchParam("page")) || 1);
   const [totalPage, setTotalPage] = useState(1);
-  const navigate = useNavigate();
   const [accessToken, _] = useLocalStorage("access-token", "");
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const getPages = () => {
     const pages = [];
@@ -36,54 +38,100 @@ const MenuList = () => {
     return pages;
   };
 
-  const getMenus = async () => {
-    const response = await menuList(filter, { page });
-    const responseBody = await response.json();
-    console.log(responseBody);
+  // const getMenus = async () => {
+  //   const response = await menuList(filter, { page });
+  //   const responseBody = await response.json();
+  //   console.log(responseBody);
 
-    if (response.status === 200) {
-      console.log("Menus fetched successfully");
-      setMenus(responseBody.data);
-      setTotalPage(responseBody.meta.last_page);
-    } else {
-      console.log(responseBody.errors);
-      await alertError(Object.values(responseBody.errors).flat().join("\n"));
-    }
-  };
+  //   if (response.status === 200) {
+  //     console.log("Menus fetched successfully");
+  //     setMenus(responseBody.data);
+  //     setTotalPage(responseBody.meta.last_page);
+  //   } else {
+  //     console.log(responseBody.errors);
+  //     await alertError(Object.values(responseBody.errors).flat().join("\n"));
+  //   }
+  // };
 
-  const handleDelete = async (id) => {
-    const confirmed = await alertConfirm(
-      "Are you sure want to delete this menu?"
-    );
+  const {
+    data: menus,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["menus", filter, page],
+    queryFn: async () => {
+      const response = await menuList(filter, { page });
+      const responseBody = await response.json();
+      console.log(responseBody);
 
-    if (confirmed) {
+      if (response.status !== 200) {
+        console.log(responseBody.errors);
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      } else {
+        setTotalPage(responseBody.meta.last_page);
+        console.log("Menus fetched successfully.");
+      }
+
+      return responseBody;
+    },
+  });
+
+  const mutation = useMutation({
+    mutationFn: async (id) => {
       const response = await menuDelete(id, accessToken);
       const responseBody = response.json();
       console.log(responseBody);
 
-      if (response.status === 200) {
-        alertSuccess("Menu deleted successfully.");
-        getMenus();
+      if (response.status !== 200) {
+        console.log(responseBody.errors);
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
       }
+    },
+    onMutate: async (data) => {
+      await queryClient.cancelQueries({ queryKey: ["menus", filter, page] });
+      const prevMenu = queryClient.getQueryData(["menus", filter, page]);
+      queryClient.setQueryData(["menus", filter, page], (old) => {
+        if (!old) return old;
+
+        return { ...old, data: old.data.filter((menu) => menu.id !== data) };
+      });
+      return { prevMenu };
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ["menus"] });
+      alertSuccess("Menu deleted Successfully!");
+    },
+    onError: (error, _, context) => {
+      alertError(error.message);
+      queryClient.setQueryData(["menus", filter, page], context.prevMenu);
+    },
+  });
+
+  const handleDelete = async (id) => {
+    const confirmed = await alertConfirm(
+      "Are you sure want to delete this menu?",
+    );
+
+    if (confirmed) {
+      mutation.mutate(id);
     }
     return;
   };
 
-  useEffect(() => {
-    console.log("test");
-    getMenus();
-  }, [page, filter]);
+  // useEffect(() => {
+  //   console.log("test");
+  //   getMenus();
+  // }, [page, filter]);
 
-  return (
-    <div className="flex flex-col gap-y-4">
-      <h2 className="font-poppins text-5xl font-bold pb-4">MENUS</h2>
-      <MenuFilter filter={filter} setFilter={setFilter} />
-      <Button
-        onClick={() => {
-          navigate("/dashboard/menus/add");
-        }}
-        title={"Add new menu"}
-      />
+  const RenderContent = () => {
+    if (isLoading)
+      return (
+        <PuffLoader color="var(--primary)" className="self-center my-10" />
+      );
+    if (isError) return console.error(error.message);
+
+    return (
       <table className="mt-4 font-poppins">
         <caption className="sr-only">List menu table</caption>
         <thead className="bg-secondary/30 text-text-muted">
@@ -101,7 +149,7 @@ const MenuList = () => {
         </thead>
 
         <tbody>
-          {menus.map((menu) => {
+          {menus.data.map((menu) => {
             return (
               <tr key={menu.id}>
                 <td>{menu.id}</td>
@@ -133,6 +181,21 @@ const MenuList = () => {
           })}
         </tbody>
       </table>
+    );
+  };
+
+  return (
+    <div className="flex flex-col gap-y-4">
+      <h2 className="font-poppins text-5xl font-bold pb-4">MENUS</h2>
+      <MenuFilter filter={filter} setFilter={setFilter} />
+      <Button
+        onClick={() => {
+          navigate("/dashboard/menus/add");
+        }}
+        title={"Add new menu"}
+      />
+
+      <RenderContent />
 
       <nav className="flex-center gap-x-4 text-xl">
         {page !== 1 && (

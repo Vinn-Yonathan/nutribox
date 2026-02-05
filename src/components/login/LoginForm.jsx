@@ -5,14 +5,81 @@ import { LucideEye, LucideEyeClosed } from "lucide-react";
 import { userLogin } from "../../lib/api/UserApi";
 import { alertError } from "../../lib/alert";
 import { useLocalStorage } from "react-use";
+import { useDispatch, useSelector } from "react-redux";
+import { clear } from "../../store/slices/cartSlice";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { cartItemMultipleAdd } from "../../lib/api/CartApi";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [_, setAccessToken] = useLocalStorage("access-token", "");
   const navigate = useNavigate();
+  const guestCartItems = useSelector((state) => state.cartGuest.items);
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const mutation = useMutation({
+    mutationFn: async ({ datas, token }) => {
+      const response = await cartItemMultipleAdd(datas, token);
+      const responseBody = await response.json();
+
+      if (response.status !== 201) {
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      }
+
+      return responseBody.data;
+    },
+    onMutate: async ({ datas }) => {
+      await queryClient.cancelQueries({ queryKey: ["carts"] });
+      const prevCart = queryClient.getQueryData(["carts"]);
+      queryClient.setQueryData(["carts"], (old) => {
+        if (!old) return old;
+        let newCart = old;
+
+        datas.forEach((data) => {
+          const isExist = old.items.find(
+            (item) => item.menu_id === data.menu_id,
+          );
+
+          if (isExist) {
+            newCart = {
+              ...newCart,
+              items: newCart.items.map((item) =>
+                item.menu_id === data.menu_id
+                  ? { ...item, quantity: item.quantity + data.quantity }
+                  : item,
+              ),
+            };
+          } else {
+            newCart = {
+              ...newCart,
+              items: [
+                ...newCart.items,
+                { menu_id: data.menu_id, quantity: data.quantity },
+              ],
+            };
+          }
+        });
+        return newCart;
+      });
+
+      return { prevCart };
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["carts"] });
+      dispatch(clear());
+      console.info("Cart item added successfully.");
+    },
+    onError: (error, _, context) => {
+      if (context?.prevCart !== undefined) {
+        queryClient.setQueryData(["carts"], context.prevCart);
+      }
+      alertError(error.message);
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +91,14 @@ const UserLogin = () => {
 
     if (response.status === 200) {
       setAccessToken(responseBody.data.access_token);
-      await navigate("/");
+      console.log(guestCartItems.length !== 0);
+      if (guestCartItems.length !== 0) {
+        await mutation.mutateAsync({
+          datas: guestCartItems,
+          token: responseBody.data.access_token,
+        });
+      }
+      navigate("/");
     } else {
       console.log(responseBody.errors);
       await alertError(Object.values(responseBody.errors).flat().join("\n"));

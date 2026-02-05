@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { userDelete, userList } from "../../../lib/api/UserApi";
 import { useLocalStorage, useSearchParam } from "react-use";
 import { Link } from "react-router";
@@ -11,15 +11,17 @@ import {
   Trash,
 } from "lucide-react";
 import { alertConfirm, alertError, alertSuccess } from "../../../lib/alert";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { PuffLoader } from "react-spinners";
 
 const UserList = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState({ name: "" });
   const [page, setPage] = useState(Number(useSearchParam("page")) || 1);
   const [totalPage, setTotalPage] = useState(1);
   const [accessToken, _] = useLocalStorage("access-token", "");
-
+  const queryClient = useQueryClient();
   const getPages = () => {
     const pages = [];
     for (let i = 1; i <= totalPage; i++) {
@@ -28,39 +30,86 @@ const UserList = () => {
     return pages;
   };
 
-  const getUsers = async () => {
-    const response = await userList(filter, page, accessToken);
-    const responseBody = await response.json();
-    console.log(responseBody);
+  // const getUsers = async () => {
+  //   const response = await userList(filter, page, accessToken);
+  //   const responseBody = await response.json();
+  //   console.log(responseBody);
 
-    if (response.status === 200) {
-      setUsers(responseBody.data);
-      setTotalPage(responseBody.meta.last_page);
-      console.log("Users fetched successfully.");
-    } else {
-      console.log(responseBody.errors);
-      await alertError(Object.values(responseBody.errors).flat().join("\n"));
-    }
-  };
+  //   if (response.status === 200) {
+  //     setUsers(responseBody.data);
+  //     setTotalPage(responseBody.meta.last_page);
+  //     console.log("Users fetched successfully.");
+  //   } else {
+  //     console.log(responseBody.errors);
+  //     await alertError(Object.values(responseBody.errors).flat().join("\n"));
+  //   }
+  // };
 
-  const handleDelete = async (id) => {
-    const confirmed = await alertConfirm(
-      "Are you sure want to delete this user?"
-    );
-    if (confirmed) {
+  const {
+    data: users,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["users", filter, page],
+    queryFn: async () => {
+      const response = await userList(filter, page, accessToken);
+      const responseBody = await response.json();
+      console.log(responseBody);
+
+      if (response.status !== 200) {
+        // setUsers(responseBody.data);
+        // setTotalPage(responseBody.meta.last_page);
+        // console.log("Users fetched successfully.");
+        console.log(responseBody.errors);
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      } else {
+        setTotalPage(responseBody.meta.last_page);
+        console.log("Users fetched successfully.");
+      }
+
+      return responseBody;
+    },
+  });
+
+  const mutation = useMutation({
+    mutationFn: async (id) => {
       const response = await userDelete(id, accessToken);
       const responseBody = await response.json();
       console.log(responseBody);
 
-      if (response.status === 200) {
-        alertSuccess("User deleted successfully.");
-        getUsers();
-      } else {
+      if (response.status !== 200) {
         console.log(responseBody.errors);
-        await alertError(Object.values(responseBody.errors).flat().join("\n"));
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
       }
-    }
+    },
+    onMutate: async (data) => {
+      await queryClient.cancelQueries({ queryKey: ["users", filter, page] });
+      const prevUser = queryClient.getQueryData(["users", filter, page]);
+      queryClient.setQueryData(["users", filter, page], (old) => {
+        if (!old) return old;
 
+        return { ...old, data: old.data.filter((user) => user.id !== data) };
+      });
+      return { prevUser };
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      alertSuccess("User deleted Successfully!");
+    },
+    onError: (error, _, context) => {
+      alertError(error.message);
+      queryClient.setQueryData(["users", filter, page], context.prevUser);
+    },
+  });
+
+  const handleDelete = async (id) => {
+    const confirmed = await alertConfirm(
+      "Are you sure want to delete this user?",
+    );
+    if (confirmed) {
+      mutation.mutate(id);
+    }
     return;
   };
 
@@ -68,38 +117,20 @@ const UserList = () => {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    getUsers();
-  }, [filter, page]);
+  // useEffect(() => {
+  //   getUsers();
+  // }, [filter, page]);
 
- 
+  const RenderContent = () => {
+    console.log(users);
+    if (isLoading)
+      return (
+        <PuffLoader color="var(--primary)" className="self-center my-10" />
+      );
 
-  return (
-    <div className="flex flex-col gap-y-4">
-      <h2 className="font-poppins text-5xl font-bold pb-4">USERS</h2>
+    if (isError) return console.error(error.message);
 
-      <section>
-        <h3 className="font-poppins text-xl font-bold" onClick={handleOpen}>
-          SEARCH
-        </h3>
-        <div className="flex flex-col gap-y-4">
-          <label
-            htmlFor="name"
-            className="w-full flex flex-col font-poppins font-light"
-          >
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Enter name"
-              className="border-1 rounded-xl border-text-muted mt-2 focus:outline-none p-[.5em]"
-              value={filter.name}
-              onChange={(e) => setFilter({ ...filter, name: e.target.value })}
-            />
-          </label>
-        </div>
-      </section>
-
+    return (
       <table className="mt-4 font-poppins">
         <caption className="sr-only">List user table</caption>
         <thead className="bg-secondary/30 text-text-muted">
@@ -114,7 +145,7 @@ const UserList = () => {
         </thead>
 
         <tbody>
-          {users.map((user) => {
+          {users.data.map((user) => {
             return (
               <tr key={user.id} className="text-center">
                 <td>{user.id}</td>
@@ -143,6 +174,36 @@ const UserList = () => {
           })}
         </tbody>
       </table>
+    );
+  };
+
+  return (
+    <div className="flex flex-col gap-y-4">
+      <h2 className="font-poppins text-5xl font-bold pb-4">USERS</h2>
+
+      <section>
+        <h3 className="font-poppins text-xl font-bold" onClick={handleOpen}>
+          SEARCH
+        </h3>
+        <div className="flex flex-col gap-y-4">
+          <label
+            htmlFor="name"
+            className="w-full flex flex-col font-poppins font-light"
+          >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter name"
+              className="border-1 rounded-xl border-text-muted mt-2 focus:outline-none p-[.5em]"
+              value={filter.name}
+              onChange={(e) => setFilter({ ...filter, name: e.target.value })}
+            />
+          </label>
+        </div>
+      </section>
+
+      <RenderContent />
 
       <nav className="flex-center gap-x-4 text-xl">
         {page !== 1 && (

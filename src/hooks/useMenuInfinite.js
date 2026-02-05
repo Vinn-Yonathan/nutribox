@@ -7,6 +7,7 @@ export const useMenuInfinite = (filter = {}) => {
     queryFn: async ({ pageParam }) => {
       const response = await menuList(filter, { page: pageParam, size: 9 });
       const responseBody = await response.json();
+      console.log(responseBody);
 
       if (response.status !== 200) {
         throw new Error(Object.values(responseBody.errors).flat().join("\n"));

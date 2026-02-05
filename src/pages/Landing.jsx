@@ -1,31 +1,26 @@
-import NavBar from "../components/landing/Navbar";
+import NavBar from "../components/common/Navbar";
 import Hero from "../components/landing/hero";
 import About from "../components/landing/about";
 import FeaturedMenu from "../components/landing/featuredMenu";
 import Quote from "../components/landing/quote";
 import Location from "../components/landing/location";
 import Footer from "../components/landing/Footer";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useLocation } from "react-router";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+// import { useGSAP } from "@gsap/react";
+import { useEffect } from "react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollToPlugin);
 
 function Landing() {
-  useGSAP(() => {
-    gsap.to("#navbar-main", {
-      scrollTrigger: {
-        trigger: "#section-about",
-        start: "top 95%",
-        end: "top 96%",
-        scrub: true,
-        markers: false,
-      },
-      backdropFilter: "blur(8px)",
-      ease: "power4.out",
-      duration: 0.3,
-    });
-  }, []);
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      gsap.to(window, { duration: 0.2, scrollTo: hash, ease: "power2" });
+    }
+  }, [hash]);
 
   return (
     <>

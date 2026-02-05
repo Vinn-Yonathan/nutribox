@@ -57,10 +57,7 @@ export const Button = ({
       onClick={onClick}
       aria-label="Multi purpose button"
     >
-      <span
-        ref={contentRef}
-        className="text-lg md:text-xl font-poppins font-medium"
-      >
+      <span ref={contentRef} className="text-lg font-poppins font-medium">
         {title}
       </span>
     </button>

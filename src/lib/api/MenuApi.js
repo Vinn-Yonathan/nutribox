@@ -1,6 +1,6 @@
 export const menuAdd = async (
   { name, description, image, price, calories, stock, isFeatured },
-  accessToken
+  accessToken,
 ) => {
   const formData = new FormData();
 
@@ -12,7 +12,7 @@ export const menuAdd = async (
   formData.append("stock", stock);
   formData.append("is_featured", isFeatured);
 
-  console.log("Menu API", formData);
+  // console.log("Menu API", formData);
 
   return await fetch(`${import.meta.env.VITE_API_PATH}/menus`, {
     method: "POST",
@@ -26,7 +26,7 @@ export const menuAdd = async (
 
 export const menuList = async (
   { name, maxPrice, minPrice, maxCalories, minCalories, available, isFeatured },
-  { page, size }
+  { page, size },
 ) => {
   const url = new URL(`${import.meta.env.VITE_API_PATH}/menus`);
   if (name) url.searchParams.append("name", name);
@@ -39,7 +39,7 @@ export const menuList = async (
   if (page) url.searchParams.append("page", page);
   if (size) url.searchParams.append("size", size);
 
-  console.log(url);
+  // console.log(url);
 
   return await fetch(url, {
     method: "GET",
@@ -52,7 +52,7 @@ export const menuList = async (
 
 export const menuUpdate = async (
   { id, name, description, image, price, calories, stock, isFeatured },
-  accessToken
+  accessToken,
 ) => {
   const formData = new FormData();
 

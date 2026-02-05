@@ -1,7 +1,7 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import React, { useState } from "react";
 
-const MenuFilter = ({ filter, setFilter }) => {
+const MenuFilter = ({ filter, setFilter, isCatalog = false }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -107,23 +107,26 @@ const MenuFilter = ({ filter, setFilter }) => {
             <input
               type="checkbox"
               name="isFeatured"
-              value={filter.isFeatured}
+              checked={filter.isFeatured}
               onChange={(e) =>
                 setFilter({ ...filter, isFeatured: e.target.checked })
               }
             />
           </label>
-          <label htmlFor="isFeatured" className="font-poppins flex gap-x-4">
-            Avalaible
-            <input
-              type="checkbox"
-              name="isFeatured"
-              value={filter.available}
-              onChange={(e) =>
-                setFilter({ ...filter, available: e.target.checked })
-              }
-            />
-          </label>
+
+          {!isCatalog && (
+            <label htmlFor="available" className="font-poppins flex gap-x-4">
+              Avalaible
+              <input
+                type="checkbox"
+                name="available"
+                checked={filter.available}
+                onChange={(e) =>
+                  setFilter({ ...filter, available: e.target.checked })
+                }
+              />
+            </label>
+          )}
         </div>
       )}
     </section>

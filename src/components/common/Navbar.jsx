@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { useEffect, useRef, useState } from "react";
-import { X, Menu } from "lucide-react";
+import { X, Menu, ShoppingCart } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useLocalStorage } from "react-use";
@@ -8,17 +8,93 @@ import ProfileMenuNav from "../common/ProfileMenuNav";
 import { userDetail, userLogout } from "../../lib/api/UserApi";
 import { alertError, alertSuccess } from "../../lib/alert";
 import ThemeButton from "../common/ThemeButton";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import ProfileMenuButton from "../common/ProfileMenuButton";
+import Badge from "@mui/material/Badge";
+// import { useLocalStorageState } from "../../hooks/useLocalStorageState";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { cartDetail } from "../../lib/api/CartApi";
+import { PuffLoader } from "react-spinners";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const NavBar = ({ className }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [accessToken, setAccessToken] = useLocalStorage("access-token", "");
-  const [user, setUser] = useState({});
+  const guestItemCart = useSelector((state) => state.cartGuest.items);
+  const [cartSize, setCartSize] = useState(0);
+  const queryClient = useQueryClient();
 
   const btnThemeMobileRef = useRef();
   const btnThemeDekstopRef = useRef();
+
+  const { data: cart } = useQuery({
+    queryKey: ["carts"],
+    queryFn: async () => {
+      const response = await cartDetail(accessToken);
+      const responseBody = await response.json();
+      console.log(responseBody);
+
+      if (response.status !== 200) {
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      }
+
+      return responseBody.data;
+    },
+    enabled: !!accessToken,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: user,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const response = await userDetail(accessToken);
+      const responseBody = await response.json();
+      console.log(responseBody);
+
+      if (response.status !== 200) {
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      }
+
+      return responseBody.data;
+    },
+    enabled: !!accessToken,
+  });
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const response = await userLogout(accessToken);
+      const responseBody = await response.json();
+      console.log(responseBody);
+
+      if (response.status !== 200) {
+        console.log(responseBody.errors);
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      }
+    },
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["user"] });
+    },
+    onSuccess: async () => {
+      queryClient.removeQueries({ queryKey: ["user"] });
+      queryClient.removeQueries({ queryKey: ["carts"] });
+      setAccessToken("");
+      alertSuccess("User Log Out Successfully!");
+    },
+    onError: async (error) => {
+      await alertError(error.message);
+    },
+  });
 
   const handleOpen = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -28,39 +104,32 @@ const NavBar = ({ className }) => {
     setProfileMenuOpen(!profileMenuOpen);
   };
 
-  async function getUserDetail() {
-    if (!accessToken) return;
-    const response = await userDetail(accessToken);
-    const responseBody = await response.json();
-    console.log(responseBody);
+  // async function handleLogout() {
+  //   const response = await userLogout(accessToken);
+  //   const responseBody = await response.json();
+  //   console.log(responseBody);
 
-    if (response.status === 200) {
-      setUser(responseBody.data);
-    } else {
-      console.log(responseBody.errors);
-      await alertError(Object.values(responseBody.errors).flat().join("\n"));
-    }
-  }
-
-  async function handleLogout() {
-    console.log("test");
-    const response = await userLogout(accessToken);
-    const responseBody = await response.json();
-    console.log(responseBody);
-
-    if (response.status === 200) {
-      await alertSuccess("User Log Out Successfully!");
-      setAccessToken("");
-      setUser("");
-    } else {
-      console.log(responseBody.errors);
-      await alertError(Object.values(responseBody.errors).flat().join("\n"));
-    }
-  }
+  //   if (response.status === 200) {
+  //     await alertSuccess("User Log Out Successfully!");
+  //     setAccessToken("");
+  //     setUser("");
+  //   } else {
+  //     console.log(responseBody.errors);
+  //     await alertError(Object.values(responseBody.errors).flat().join("\n"));
+  //   }
+  // }
 
   useEffect(() => {
-    getUserDetail();
-  }, [accessToken]);
+    if (accessToken) {
+      setCartSize(cart?.items.length ?? 0);
+    } else {
+      setCartSize(guestItemCart.length);
+    }
+  }, [cart, guestItemCart, accessToken]);
+
+  // useEffect(() => {
+  //   getUserDetail();
+  // }, [accessToken]);
 
   // animation
   useGSAP(() => {
@@ -71,9 +140,24 @@ const NavBar = ({ className }) => {
         rotateY: 360,
         duration: 1,
         ease: "expo.out",
-      }
+      },
     );
   }, [isDark]);
+
+  useGSAP(() => {
+    gsap.to("#navbar-main", {
+      scrollTrigger: {
+        trigger: "body",
+        start: "100 top",
+        end: "200 top",
+        scrub: true,
+        markers: false,
+      },
+      backdropFilter: "blur(8px)",
+      ease: "power4.out",
+      duration: 0.3,
+    });
+  }, []);
 
   const handleDark = () => {
     setIsDark(!isDark);
@@ -93,6 +177,40 @@ const NavBar = ({ className }) => {
       duration: 0.05,
       ease: "power3.out",
     });
+  };
+
+  const RenderProfileMenu = () => {
+    if (isLoading) return null;
+    // return (
+    //   <PuffLoader color="var(--primary)" className="self-center my-10" />
+    // );
+    if (isError) return console.error(error.message);
+
+    return (
+      <ProfileMenuNav
+        fullName={`${user.first_name} ${user.last_name}`}
+        email={user.email}
+        handleLogout={() => mutation.mutate()}
+      />
+    );
+  };
+
+  const RenderProfileMenuMobile = () => {
+    if (isLoading) return null;
+    // return (
+    //   <PuffLoader color="var(--primary)" className="self-center my-10" />
+    // );
+    if (isError) return console.error(error.message);
+
+    return (
+      <ProfileMenuNav
+        fullName={`${user.first_name} ${user.last_name}`}
+        email={user.email}
+        isOpen={profileMenuOpen}
+        handleClose={handleProfileMenuOpen}
+        handleLogout={() => mutation.mutate()}
+      />
+    );
   };
 
   return (
@@ -115,32 +233,27 @@ const NavBar = ({ className }) => {
           </button>
           <ul className="flex-center flex-col space-y-10 text-5xl content-center">
             <li>
-              <a
-                href="#section-about"
+              <Link
+                to="/#section-about"
                 className="font-jomhuria hover:text-slate-100"
               >
                 ABOUT
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#section-fm"
+              <Link
+                to="/#section-fm"
                 className="font-jomhuria hover:text-slate-100"
               >
                 FEATURED MENU
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#section-location"
+              <Link
+                to="/#section-location"
                 className="font-jomhuria hover:text-slate-100"
               >
                 LOCATION
-              </a>
-            </li>
-            <li>
-              <Link to="#" className="font-jomhuria hover:text-slate-100">
-                CART
               </Link>
             </li>
           </ul>
@@ -148,41 +261,33 @@ const NavBar = ({ className }) => {
       ) : (
         // Dekstop navbar
         <div className="flex justify-between items-center px-3 md:paddingx py-3">
-          <a href="#section-hero" className="font-jomhuria text-5xl">
+          <Link to="/#section-hero" className="font-jomhuria text-5xl">
             NUTRIBOX
-          </a>
+          </Link>
 
           <ul className="hidden md:flex-center space-x-4 text-3xl">
             <li className="flex-center">
-              <a
-                href="#section-about"
+              <Link
+                to="/#section-about"
                 className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
               >
                 ABOUT
-              </a>
-            </li>
-            <li className="flex-center">
-              <a
-                href="#section-fm"
-                className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
-              >
-                FEATURED MENU
-              </a>
-            </li>
-            <li className="flex-center">
-              <a
-                href="#section-location"
-                className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
-              >
-                LOCATION
-              </a>
+              </Link>
             </li>
             <li className="flex-center">
               <Link
-                to="#"
+                to="/#section-fm"
                 className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
               >
-                CART
+                FEATURED MENU
+              </Link>
+            </li>
+            <li className="flex-center">
+              <Link
+                to="/#section-location"
+                className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
+              >
+                LOCATION
               </Link>
             </li>
 
@@ -214,15 +319,30 @@ const NavBar = ({ className }) => {
                   className="pb-[0.3rem]"
                 />
 
-                {profileMenuOpen && (
-                  <ProfileMenuNav
-                    fullName={`${user.first_name} ${user.last_name}`}
-                    email={user.email}
-                    handleLogout={handleLogout}
-                  />
-                )}
+                {profileMenuOpen && <RenderProfileMenu />}
               </div>
             )}
+
+            <li className="flex-center">
+              <Link
+                to="/cart"
+                className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
+              >
+                <Badge
+                  badgeContent={cartSize}
+                  color="primary"
+                  max={99}
+                  sx={{
+                    "& .MuiBadge-badge": {
+                      bgcolor: "var(--primary)",
+                      color: "var(--background)",
+                    },
+                  }}
+                >
+                  <ShoppingCart size={20} />
+                </Badge>
+              </Link>
+            </li>
 
             {/* Desktop Theme Button */}
             <li className="flex-center">
@@ -262,17 +382,30 @@ const NavBar = ({ className }) => {
                   size={30}
                 />
 
-                {profileMenuOpen && (
-                  <ProfileMenuNav
-                    fullName={`${user.first_name} ${user.last_name}`}
-                    email={user.email}
-                    isOpen={profileMenuOpen}
-                    handleClose={handleProfileMenuOpen}
-                    handleLogout={handleLogout}
-                  />
-                )}
+                {profileMenuOpen && <RenderProfileMenuMobile />}
               </div>
             )}
+
+            <li className="flex-center">
+              <Link
+                to="/cart"
+                className="font-jomhuria hover:gradient-text transition duration-75 ease-in"
+              >
+                <Badge
+                  badgeContent={cartSize}
+                  color="primary"
+                  max={99}
+                  sx={{
+                    "& .MuiBadge-badge": {
+                      bgcolor: "var(--primary)",
+                      color: "var(--background)",
+                    },
+                  }}
+                >
+                  <ShoppingCart size={25} />
+                </Badge>
+              </Link>
+            </li>
 
             {/* Mobile Theme Button */}
             <ThemeButton

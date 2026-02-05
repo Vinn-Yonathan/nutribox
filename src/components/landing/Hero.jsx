@@ -2,12 +2,14 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useRef } from "react";
+import { useNavigate } from "react-router";
 
 gsap.registerPlugin(SplitText);
 
 const Hero = ({ classname = "" }) => {
   const btnRef = useRef(null);
   const contentRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleEnter = () => {
     gsap.to(btnRef.current, {
@@ -79,6 +81,7 @@ const Hero = ({ classname = "" }) => {
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
         ref={btnRef}
+        onClick={() => navigate("/menus")}
       >
         <span
           className="font-poppins font-medium text-sm sm:text-lg"

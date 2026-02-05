@@ -1,34 +1,37 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { menuList } from "../../lib/api/MenuApi";
-import { useEffectOnce } from "react-use";
+// import { useEffectOnce } from "react-use";
 import { Link } from "react-router";
 import CardFM from "./CardFM";
+import { useQuery } from "@tanstack/react-query";
+import { PuffLoader } from "react-spinners";
 
 gsap.registerPlugin(ScrollTrigger);
 const FeaturedMenu = () => {
-  const [menus, setMenus] = useState([]);
   const btnRef = useRef(null);
   const contentRef = useRef(null);
 
-  const getFeaturedMenu = async () => {
-    const response = await menuList({ isFeatured: 1 }, { size: 3 });
-    const responseBody = await response.json();
-    console.log(responseBody);
+  const {
+    data: menus,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["featured_menu"],
+    queryFn: async () => {
+      const response = await menuList({ isFeatured: 1 }, { size: 3 });
+      const responseBody = await response.json();
+      console.log(responseBody);
 
-    if (response.status === 200) {
-      console.log("Featured menu fetched successfully.");
-      setMenus(responseBody.data);
-      console.log("menus", menus);
-    } else {
-      console.log(responseBody.errors);
-    }
-  };
+      if (response.status !== 200) {
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      }
 
-  useEffectOnce(() => {
-    getFeaturedMenu();
+      return responseBody.data;
+    },
   });
 
   // Animations
@@ -114,6 +117,32 @@ const FeaturedMenu = () => {
     });
   };
 
+  const RenderContent = () => {
+    if (isLoading)
+      return (
+        <PuffLoader color="var(--primary)" className="self-center my-10" />
+      );
+    if (isError) return console.error(error.message);
+
+    return (
+      <div className="menu flex flex-col md:flex-row flex-wrap items-center justify-center md:justify-between md:gap-x-2 lg:gap-x-15 xl:gap-x-18 2xl:gap-x-30 gap-y-10">
+        {menus?.map((menu) => (
+          <CardFM
+            key={menu.id}
+            title={menu.name}
+            src={menu.image_src}
+            desc={menu.description}
+            id={menu.id}
+          />
+        ))}
+      </div>
+    );
+  };
+
+  // useEffect(() => {
+  //   setMenus(data);
+  // }, [data]);
+
   return (
     <section
       className="flex-center flex-col space-y-20 min-h-screen paddingx-mobile sm:paddingx-tablet xl:paddingx md:py-20"
@@ -125,16 +154,7 @@ const FeaturedMenu = () => {
         <span id="fm-title-2">MENU</span>
       </h2>
 
-      <div className="menu flex flex-col md:flex-row flex-wrap items-center justify-center md:justify-between md:gap-x-2 lg:gap-x-15 xl:gap-x-18 2xl:gap-x-30 gap-y-10">
-        {menus.map((menu) => (
-          <CardFM
-            key={menu.id}
-            title={menu.name}
-            src={menu.image_src}
-            desc={menu.description}
-          />
-        ))}
-      </div>
+      <RenderContent />
 
       <button
         ref={btnRef}

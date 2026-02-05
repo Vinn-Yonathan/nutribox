@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { CircleX } from "lucide-react";
 import MenuForm from "../../common/MenuForm";
 import BackButton from "../../common/BackButton";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const MenuAdd = () => {
   const [formData, setFormData] = useState({
@@ -20,31 +21,42 @@ const MenuAdd = () => {
   });
   const [accessToken, _] = useLocalStorage("access-token", "");
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const response = await menuAdd(
+        {
+          name: formData.name,
+          description: formData.description,
+          image: formData.image,
+          price: formData.price,
+          calories: formData.calories,
+          stock: formData.stock,
+          isFeatured: formData.isFeatured,
+        },
+        accessToken,
+      );
+      const responseBody = await response.json();
+      console.log(responseBody);
+
+      if (response.status !== 201) {
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      }
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries("menus");
+      await alertSuccess("Menu added successfully.");
+      navigate("/dashboard/menus");
+    },
+    onError: (error) => {
+      alertError(error.message);
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await menuAdd(
-      {
-        name: formData.name,
-        description: formData.description,
-        image: formData.image,
-        price: formData.price,
-        calories: formData.calories,
-        stock: formData.stock,
-        isFeatured: formData.isFeatured,
-      },
-      accessToken
-    );
-    const responseBody = await response.json();
-    console.log(responseBody);
-
-    if (response.status === 201) {
-      alertSuccess("Menu added successfully.");
-      navigate("/dashboard/menus");
-    } else {
-      console.log(responseBody.errors);
-      await alertError(Object.values(responseBody.errors).flat().join("\n"));
-    }
+    mutation.mutate();
   };
 
   return (

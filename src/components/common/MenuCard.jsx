@@ -1,11 +1,13 @@
 import gsap from "gsap";
 import { Plus } from "lucide-react";
 import React, { useRef } from "react";
+import { useNavigate } from "react-router";
 
-const MenuCard = ({ name, price, calories, image_src }) => {
+const MenuCard = ({ id, name, price, calories, image_src }) => {
   const btnRef = useRef(null);
   const contentRef = useRef(null);
   const iconRef = useRef(null);
+  const navigate = useNavigate();
   const serverURL = import.meta.env.VITE_API_BASE_URL;
 
   const handleEnter = () => {
@@ -44,7 +46,10 @@ const MenuCard = ({ name, price, calories, image_src }) => {
     });
   };
   return (
-    <article className="grid-rows-[1fr_auto_auto_auto] justify-items-center w-34 h-70 sm:w-54 sm:h-80 md:w-64 xl:w-74 xl:h-100 bg-surface/30 rounded-xl shadow-text-muted shadow-md/20">
+    <article
+      className="grid-rows-[1fr_auto_auto_auto] justify-items-center w-34 h-70 sm:w-54 sm:h-80 md:w-64 xl:w-74 xl:h-100 bg-surface/30 rounded-xl shadow-text-muted shadow-md/20"
+      onClick={() => navigate(`/menus/${id}`)}
+    >
       <img
         src={`${serverURL}${image_src}`}
         alt={`image of ${name}`}
@@ -74,20 +79,14 @@ const MenuCard = ({ name, price, calories, image_src }) => {
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
           aria-label="Menu details"
+          onClick={() => navigate(`/menus/${id}`)}
         >
           <span
             ref={contentRef}
-            className="btn-content hidden sm:block sm:text-[0.65rem] font-medium"
+            className="btn-content hidden sm:block sm:text-[0.8rem] font-medium"
           >
-            Add to cart
+            Menu Details
           </span>
-          <Plus
-            ref={iconRef}
-            fill="black"
-            size={25}
-            strokeWidth={2.5}
-            className="btn-content"
-          />
         </button>
       </div>
       {/* <div className="flex flex-col px-3 py-1 sm:py-4 sm:gap-2 xl:gap-3">

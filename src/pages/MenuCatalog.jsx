@@ -5,6 +5,8 @@ import { useMenuInfinite } from "../hooks/useMenuInfinite";
 import { PuffLoader } from "react-spinners";
 import { alertError } from "../lib/alert";
 import MenuCard from "../components/common/MenuCard";
+import NavBar from "../components/common/Navbar";
+import FooterInfo from "../components/common/FooterInfo";
 
 const MenuCatalog = () => {
   const [filter, setFilter] = useState({
@@ -13,7 +15,7 @@ const MenuCatalog = () => {
     minPrice: null,
     maxCalories: null,
     minCalories: null,
-    available: false,
+    available: true,
     isFeatured: false,
   });
 
@@ -38,7 +40,7 @@ const MenuCatalog = () => {
           fetchNextPage();
         }
       },
-      { threshold: 1 }
+      { threshold: 1 },
     );
 
     if (observerTarget.current) {
@@ -63,12 +65,13 @@ const MenuCatalog = () => {
 
     return (
       <>
-        <MenuFilter filter={filter} setFilter={setFilter} />
+        <MenuFilter filter={filter} setFilter={setFilter} isCatalog={true} />
         <div className="grid grid-cols-2 lg:grid-cols-3 4xl:grid-cols-4 gap-y-28 justify-items-center">
           {menus.map((menu) => {
             return (
               <MenuCard
                 key={menu.id}
+                id={menu.id}
                 name={menu.name}
                 price={menu.price}
                 calories={menu.calories}
@@ -88,9 +91,17 @@ const MenuCatalog = () => {
   };
 
   return (
-    <main className="flex flex-col gap-y-8 min-h-screen px-8 sm:paddingx-tablet lg:paddingx py-8">
-      <RenderContent />
-    </main>
+    <div className="flex flex-col justify-between">
+      <header>
+        <NavBar />
+      </header>
+      <main className="flex flex-col mt-12 gap-y-8 min-h-screen px-8 sm:paddingx-tablet lg:paddingx py-8">
+        <RenderContent />
+      </main>
+      <footer className="px-10">
+        <FooterInfo />
+      </footer>
+    </div>
   );
 };
 

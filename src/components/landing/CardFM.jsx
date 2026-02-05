@@ -1,12 +1,14 @@
 import gsap from "gsap";
 import { useRef } from "react";
 import { MoveRight } from "lucide-react";
+import { useNavigate } from "react-router";
 
-const CardFM = ({ src, title, desc }) => {
+const CardFM = ({ src, title, desc, id }) => {
   const btnRef = useRef(null);
   const contentRef = useRef(null);
   const iconRef = useRef(null);
   const serverURL = import.meta.env.VITE_API_BASE_URL;
+  const navigate = useNavigate();
 
   console.log(`${serverURL}${src}`);
 
@@ -65,6 +67,9 @@ const CardFM = ({ src, title, desc }) => {
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
           aria-label="Menu details"
+          onClick={() => {
+            navigate(`/menus/${id}`);
+          }}
         >
           <span
             ref={contentRef}

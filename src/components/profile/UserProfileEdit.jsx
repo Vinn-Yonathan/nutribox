@@ -7,15 +7,49 @@ import { userUpdate } from "../../lib/api/UserApi";
 import { alertConfirm, alertError, alertSuccess } from "../../lib/alert";
 import { Button } from "../common/Button";
 import { useLocalStorage } from "react-use";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const UserProfileEdit = () => {
-  const { user, getUserDetail } = useOutletContext();
+  const { user } = useOutletContext();
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
   const [address, setAddress] = useState(user.address || "");
   const [accessToken, _] = useLocalStorage("access-token", "");
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (updatedField) => {
+      const response = await userUpdate(updatedField, accessToken);
+      const responseBody = await response.json();
+      console.log(responseBody);
+
+      if (response.status !== 200) {
+        console.log(responseBody.errors);
+        throw new Error(Object.values(responseBody.errors).flat().join("\n"));
+      }
+    },
+    onMutate: async (data) => {
+      await queryClient.cancelQueries({ queryKey: ["user"] });
+      const prevUser = queryClient.getQueryData(["user"]);
+      queryClient.setQueryData(["user"], (old) => {
+        if (!old) return old;
+
+        return { ...old, ...data };
+      });
+      return { prevUser };
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      alertSuccess("User updated successfully!");
+      navigate("/profile");
+    },
+    onError: (error, _, context) => {
+      queryClient.setQueryData(["user", context.prevUser]);
+      alertError(error.message);
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,8 +58,8 @@ const UserProfileEdit = () => {
     const confirmed = await alertConfirm("");
 
     if (confirmed) {
-      if (firstName !== user.first_name) updatedField.firstName = firstName;
-      if (lastName !== user.last_name) updatedField.lastName = lastName;
+      if (firstName !== user.first_name) updatedField.first_name = firstName;
+      if (lastName !== user.last_name) updatedField.last_name = lastName;
       if (email !== user.email) updatedField.email = email;
       if (address !== user.address) updatedField.address = address;
 
@@ -34,20 +68,7 @@ const UserProfileEdit = () => {
         return;
       }
 
-      console.log(accessToken);
-      const response = await userUpdate(updatedField, accessToken);
-      const responseBody = await response.json();
-      console.log(responseBody);
-      console.log(response.status);
-
-      if (response.status === 200) {
-        alertSuccess("User updated successfully!");
-        await getUserDetail();
-        await navigate("/profile");
-      } else {
-        console.log(responseBody.errors);
-        await alertError(Object.values(responseBody.errors).flat().join("\n"));
-      }
+      mutation.mutate(updatedField);
     }
     return;
   };
