@@ -55,7 +55,7 @@ export const userDetailById = async (id, accessToken) => {
 
 export const userLogout = async (accessToken) => {
   return await fetch(`${import.meta.env.VITE_API_PATH}/users/current`, {
-    method: "DELETE",
+    method: "POST",
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${accessToken}`,
