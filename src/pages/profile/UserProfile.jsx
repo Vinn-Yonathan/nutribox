@@ -1,12 +1,12 @@
 import { UserRound } from "lucide-react";
 import React from "react";
-import ProfileField from "../common/ProfileField";
-import { Button } from "../common/Button";
+import ProfileField from "../../components/common/ProfileField";
+import { Button } from "../../components/common/Button";
 import { useNavigate, useOutletContext } from "react-router";
 
 const UserProfile = () => {
   const { user } = useOutletContext();
-  console.log("user", user);
+  // console.log("user", user);
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/profile/edit");

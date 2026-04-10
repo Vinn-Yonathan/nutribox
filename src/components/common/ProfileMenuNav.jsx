@@ -45,6 +45,9 @@ const ProfileMenuNav = ({
         <li className="text-sm">
           <Link to="/profile">My Profile</Link>
         </li>
+        <li className="text-sm">
+          <Link to="/transactions/history">Transactions</Link>
+        </li>
         <li className="text-sm text-red-400">
           <button onClick={handleLogout}>Log out</button>
         </li>

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import BackButton from "../../common/BackButton";
+import BackButton from "../../../components/common/BackButton";
 import { useLocalStorage } from "react-use";
 import { useNavigate, useParams } from "react-router";
 import { userDetailById, userUpdateById } from "../../../lib/api/UserApi";
 import { alertConfirm, alertError, alertSuccess } from "../../../lib/alert";
-import { FormButton } from "../../common/FormButton";
-import { Button } from "../../common/Button";
+import { FormButton } from "../../../components/common/FormButton";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PuffLoader } from "react-spinners";
 
@@ -66,7 +65,7 @@ const UserEdit = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
       alertSuccess("User updated successfully!");
       navigate("/dashboard/users");
     },

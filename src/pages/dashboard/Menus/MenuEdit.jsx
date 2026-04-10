@@ -3,8 +3,8 @@ import { useNavigate, useParams } from "react-router";
 import { useLocalStorage } from "react-use";
 import { menuDetail, menuUpdate } from "../../../lib/api/MenuApi";
 import { alertConfirm, alertError, alertSuccess } from "../../../lib/alert";
-import MenuForm from "../../common/MenuForm";
-import BackButton from "../../common/BackButton";
+import MenuForm from "../../../components/common/MenuForm";
+import BackButton from "../../../components/common/BackButton";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PuffLoader } from "react-spinners";
 
@@ -66,7 +66,7 @@ const MenuEdit = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["menu"] });
+      queryClient.invalidateQueries({ queryKey: ["menus"] });
       alertSuccess("Menu updated successfully!");
       navigate("/dashboard/menus");
     },

@@ -51,13 +51,16 @@ export const Button = ({
       ref={btnRef}
       type={type}
       style={{ paddingLeft: `${px}em`, paddingRight: `${px}em` }}
-      className={`py-[0.5em] border-2 rounded-full ${className}`}
+      className={`py-[0.3em] sm:py-[0.5em] border-2 rounded-full ${className}`}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onClick={onClick}
       aria-label="Multi purpose button"
     >
-      <span ref={contentRef} className="text-lg font-poppins font-medium">
+      <span
+        ref={contentRef}
+        className="text-sm sm:text-base md:text-lg font-poppins font-medium"
+      >
         {title}
       </span>
     </button>

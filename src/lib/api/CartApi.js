@@ -46,3 +46,13 @@ export const cartItemDelete = async (menuId, accessToken) => {
     },
   });
 };
+export const cartDelete = async (accessToken) => {
+  return await fetch(`${import.meta.env.VITE_API_PATH}/carts`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};

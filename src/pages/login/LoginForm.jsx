@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormButton } from "../common/FormButton";
+import { FormButton } from "../../components/common/FormButton";
 import { Link, useNavigate } from "react-router";
 import { LucideEye, LucideEyeClosed } from "lucide-react";
 import { userLogin } from "../../lib/api/UserApi";

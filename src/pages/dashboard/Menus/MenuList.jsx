@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { menuDelete, menuList } from "../../../lib/api/MenuApi";
 import { alertConfirm, alertError, alertSuccess } from "../../../lib/alert";
-import { Button } from "../../common/Button";
+import { Button } from "../../../components/common/Button";
 import { Link, useNavigate } from "react-router";
 import {
   ChevronLeftCircle,
@@ -9,7 +9,7 @@ import {
   Pencil,
   Trash,
 } from "lucide-react";
-import MenuFilter from "../../common/MenuFilter";
+import MenuFilter from "../../../components/common/MenuFilter";
 import { useLocalStorage, useSearchParam } from "react-use";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PuffLoader } from "react-spinners";

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { FormButton } from "../../common/FormButton";
+import { FormButton } from "../../../components/common/FormButton";
 import { useLocalStorage } from "react-use";
 import { menuAdd } from "../../../lib/api/MenuApi";
 import { alertError, alertSuccess } from "../../../lib/alert";
 import { useNavigate } from "react-router";
 import { CircleX } from "lucide-react";
-import MenuForm from "../../common/MenuForm";
-import BackButton from "../../common/BackButton";
+import MenuForm from "../../../components/common/MenuForm";
+import BackButton from "../../../components/common/BackButton";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const MenuAdd = () => {

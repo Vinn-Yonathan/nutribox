@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import { menuDetail } from "../lib/api/MenuApi";
+import { menuDetail } from "../../lib/api/MenuApi";
 import { useParams } from "react-router";
-import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import { useLocalStorageState } from "../../hooks/useLocalStorageState";
 import { CircleMinus, CirclePlus } from "lucide-react";
-import { Button } from "../components/common/Button";
-import BackButton from "../components/common/BackButton";
-import NavBar from "../components/common/Navbar";
-import FooterInfo from "../components/common/FooterInfo";
+import { Button } from "../../components/common/Button";
+import BackButton from "../../components/common/BackButton";
+import NavBar from "../../components/common/Navbar";
+import FooterInfo from "../../components/common/FooterInfo";
 import { useDispatch } from "react-redux";
-import { add } from "../store/slices/cartSlice";
+import { add } from "../../store/slices/cartSlice";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { cartItemAdd } from "../lib/api/CartApi";
+import { cartItemAdd } from "../../lib/api/CartApi";
 import { PuffLoader } from "react-spinners";
+import formatCurrency from "../../lib/formatCurrency";
 
 const MenuDetails = () => {
   const menuId = useParams();
@@ -177,7 +178,7 @@ const MenuDetails = () => {
           </div>
 
           <p className="font-bold text-xl">
-            Total price: {menu.price * quantity}$
+            Total price: {formatCurrency(menu.price * quantity)}
           </p>
 
           <div className="-ml-2">

@@ -1,11 +1,11 @@
 import { UserRound } from "lucide-react";
 import React, { useState } from "react";
-import ProfileField from "../common/ProfileField";
-import { FormButton } from "../common/FormButton";
+import ProfileField from "../../components/common/ProfileField";
+import { FormButton } from "../../components/common/FormButton";
 import { useNavigate, useOutletContext } from "react-router";
 import { userUpdate } from "../../lib/api/UserApi";
 import { alertConfirm, alertError, alertSuccess } from "../../lib/alert";
-import { Button } from "../common/Button";
+import { Button } from "../../components/common/Button";
 import { useLocalStorage } from "react-use";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

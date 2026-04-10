@@ -54,7 +54,7 @@ const UserLayout = () => {
           style={{ backgroundImage: `url(${registerStoreImage})` }}
         ></div>
 
-        <div className="w-full mt-6 marginx-mobile md:marginx-tablet lg:marginx rounded-2xl relative bg-background flex justify-center flex-col">
+        <div className="w-full my-6 marginx-mobile md:marginx-tablet lg:marginx rounded-2xl relative bg-background flex justify-center flex-col">
           {/* <BackButton
             className={
               "self-start mt-6 mx-12 hover:text-primary transition duration-200"

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "../common/Button";
+import { Button } from "../../components/common/Button";
 import { Trash } from "lucide-react";
 import { PuffLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,8 @@ import { remove } from "../../store/slices/cartSlice";
 import { useLocalStorage } from "react-use";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { cartDetail, cartItemDelete } from "../../lib/api/CartApi";
+import { useNavigate } from "react-router";
+import formatCurrency from "../../lib/formatCurrency";
 
 const UserCart = () => {
   const queryClient = useQueryClient();
@@ -15,6 +17,7 @@ const UserCart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const guestCartItems = useSelector((state) => state.cartGuest.items);
   const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { data, isLoading, isError, error } = useQuery({
@@ -77,6 +80,14 @@ const UserCart = () => {
     }
   };
 
+  const handleCheckout = () => {
+    if (accessToken) {
+      navigate("/transactions/summary", { state: { cart, totalPrice } });
+    } else {
+      navigate("/login");
+    }
+  };
+
   useEffect(() => {
     if (accessToken && data?.items) {
       setCart(data.items);
@@ -111,14 +122,14 @@ const UserCart = () => {
               >
                 <img
                   src={serverURL + item.image_src}
-                  alt=""
+                  alt={`Picture of ${item.name}`}
                   className="h-16 rounded-2xl"
                 />
                 <p className="font-bold">{item.name}</p>
                 <p>{item.quantity}x</p>
-                <p>{item.price}$</p>
+                <p>{formatCurrency(item.price)}</p>
                 <p className="ml-auto font-bold">
-                  {item.price * item.quantity}$
+                  {formatCurrency(item.price * item.quantity)}
                 </p>
                 <button onClick={() => handleRemove(item)}>
                   <Trash className="text-red-400 hover:text-red-600 transition duration-100" />
@@ -132,9 +143,9 @@ const UserCart = () => {
           <hr className="w-full text-text" />
           <div className="flex justify-between p-2 font-bold font-poppins text-xl lg:text-2xl">
             <p>Total </p>
-            <p>{totalPrice}$ </p>
+            <p>{formatCurrency(totalPrice)}</p>
           </div>
-          <Button title="Check Out" className="mt-4" />
+          <Button title="Check Out" className="mt-4" onClick={handleCheckout} />
         </div>
       </>
     );

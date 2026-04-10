@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import MenuFilter from "../components/common/MenuFilter";
-import { useMenuInfinite } from "../hooks/useMenuInfinite";
+import MenuFilter from "../../components/common/MenuFilter";
+import { useMenuInfinite } from "../../hooks/useMenuInfinite";
 // import CardFM from "../components/landing/CardFM";
 import { PuffLoader } from "react-spinners";
-import { alertError } from "../lib/alert";
-import MenuCard from "../components/common/MenuCard";
-import NavBar from "../components/common/Navbar";
-import FooterInfo from "../components/common/FooterInfo";
+import { alertError } from "../../lib/alert";
+import MenuCard from "../../components/common/MenuCard";
+import NavBar from "../../components/common/Navbar";
+import FooterInfo from "../../components/common/FooterInfo";
 
 const MenuCatalog = () => {
   const [filter, setFilter] = useState({
