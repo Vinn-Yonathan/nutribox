@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import Landing from "./pages/Landing.jsx";
-import AuthLayout from "./components/Layout/AuthLayout.jsx";
+import AuthLayout from "./components/layout/AuthLayout.jsx";
 import UserLayout from "./components/layout/UserLayout.jsx";
 import MenuAdd from "./pages/dashboard/Menus/MenuAdd.jsx";
 import MenuEdit from "./pages/dashboard/Menus/MenuEdit.jsx";
