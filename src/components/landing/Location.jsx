@@ -3,7 +3,7 @@ import LocationDetail from "./LocationDetail";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import store from "../../assets/img/store.jpg";
+import store from "/store.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 

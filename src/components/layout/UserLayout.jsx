@@ -3,7 +3,7 @@ import { Outlet } from "react-router";
 import { userDetail } from "../../lib/api/UserApi";
 import { useLocalStorage } from "react-use";
 import BackButton from "../common/BackButton";
-import registerStoreImage from "../../assets/img/register-store.jpg";
+import registerStoreImage from "/register-store.jpg";
 import NavBar from "../common/Navbar";
 import FooterInfo from "../common/FooterInfo";
 import { PuffLoader } from "react-spinners";

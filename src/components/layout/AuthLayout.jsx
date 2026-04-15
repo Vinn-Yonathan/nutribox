@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
 import FooterInfo from "../common/FooterInfo";
-import register_store from "../../assets/img/register-store.jpg";
+import register_store from "/register-store.jpg";
 
 const AuthLayout = () => {
   return (

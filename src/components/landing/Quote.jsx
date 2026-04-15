@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import chef_anthony from "../../assets/img/chef-anthony.jpg";
+import chef_anthony from "/chef-anthony.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 

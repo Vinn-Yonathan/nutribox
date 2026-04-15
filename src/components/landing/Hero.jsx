@@ -3,9 +3,9 @@ import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useRef } from "react";
 import { useNavigate } from "react-router";
-import box from "../../assets/img/box.png";
-import granola from "../../assets/img/granola.png";
-import cabbage from "../../assets/img/cabbage.png";
+import box from "/box.png";
+import granola from "/Granola.png";
+import cabbage from "/Cabbage.png";
 
 gsap.registerPlugin(SplitText);
 
