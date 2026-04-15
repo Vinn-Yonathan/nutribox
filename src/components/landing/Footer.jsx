@@ -1,4 +1,4 @@
-import Newsletter from "./newsletter";
+import Newsletter from "./Newsletter";
 import { Link } from "react-router";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
