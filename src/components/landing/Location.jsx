@@ -3,6 +3,7 @@ import LocationDetail from "./LocationDetail";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import store from "../../assets/img/store.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,7 +64,7 @@ const Location = () => {
       id="section-location"
     >
       <img
-        src="src/assets/img/store.jpg"
+        src={store}
         alt="Picture of Main Store"
         className="absolute sm:static rounded-2xl -left-40 top-77 h-[24rem] sm:h-[26rem] sm:w-1/2 lg:h-[32rem] lg:w-2/3 object-cover"
         loading="lazy"

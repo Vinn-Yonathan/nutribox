@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import chef_anthony from "../../assets/img/chef-anthony.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,7 +30,7 @@ const Quote = () => {
       id="section-quote"
     >
       <img
-        src="src/assets/img/chef-anthony.jpg"
+        src={chef_anthony}
         alt="Potrait of Anthony Chang, Head Chef at Nutribox"
         className="rounded-4xl w-[18.75rem] h-[18.75rem] self-end sm:self-center md:min-w-[30rem] md:min-h-[30rem] lg:order-2 xl:min-w-[42rem] xl:min-h-[42rem] lg:object-fill lg:rounded-2xl"
         loading="lazy"

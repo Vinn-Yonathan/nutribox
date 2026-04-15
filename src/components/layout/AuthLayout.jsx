@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
 import FooterInfo from "../common/FooterInfo";
+import register_store from "../../assets/img/register-store.jpg";
 
 const AuthLayout = () => {
   return (
     <main className="flex w-screen h-screen">
       <img
-        src="src/assets/img/register-store.jpg"
+        src={register_store}
         alt="Picture of Nutribox Main Store Front Counter"
         className="flex-1 object-cover hidden lg:block h-full"
         loading="lazy"

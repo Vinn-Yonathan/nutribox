@@ -1,6 +1,8 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import chef from "../../assets/img/chef.jpg";
+import ingredient from "../../assets/img/ingredient.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,13 +66,13 @@ const About = ({ className }) => {
       <div className="flex flex-col lg:flex-row space-y-10 lg:space-x-30">
         <div className="img flex-center relative">
           <img
-            src="src/assets/img/chef.jpg"
+            src={chef}
             alt="Chef cooking at Nutribox"
             className="rounded-4xl lg:rounded-[15%] h-[18rem] md:h-[24rem] md:w-[24rem] lg:h-[32rem] lg:max-w-[37.875rem] 2xl:h-[32rem] object-cover"
             loading="lazy"
           />
           <img
-            src="src/assets/img/ingredient.jpg"
+            src={ingredient}
             alt="ingredients"
             className="hidden lg:block absolute -bottom-30 -right-30 rounded-[5rem] h-[16rem] w-[16rem] xl:h-[14rem] xl:w-[14rem]"
             loading="lazy"

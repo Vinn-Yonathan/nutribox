@@ -3,6 +3,9 @@ import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useRef } from "react";
 import { useNavigate } from "react-router";
+import box from "../../assets/img/box.png";
+import granola from "../../assets/img/granola.png";
+import cabbage from "../../assets/img/cabbage.png";
 
 gsap.registerPlugin(SplitText);
 
@@ -94,17 +97,17 @@ const Hero = ({ classname = "" }) => {
       <div>
         <img
           className="hidden md:block h-[32rem] -translate-y-24 "
-          src="src/assets/img/box.png"
+          src={box}
           alt=""
         />
         <img
           className="h-[23rem] lg:h-[36rem] xl:h-[46rem] absolute -top-30 lg:-top-40 -left-40"
-          src="src/assets/img/granola.png"
+          src={granola}
           alt=""
         />
         <img
           className="h-[10rem] md:h-[20rem] xl:h-[24rem] absolute top-130 md:top-80 right-0 rotate-270"
-          src="src/assets/img/cabbage.png"
+          src={cabbage}
           alt=""
         />
       </div>
