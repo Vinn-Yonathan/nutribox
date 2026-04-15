@@ -1,9 +1,9 @@
 import NavBar from "../components/common/Navbar";
-import Hero from "../components/landing/hero";
-import About from "../components/landing/about";
-import FeaturedMenu from "../components/landing/featuredMenu";
-import Quote from "../components/landing/quote";
-import Location from "../components/landing/location";
+import Hero from "../components/landing/Hero";
+import About from "../components/landing/About";
+import FeaturedMenu from "../components/landing/FeaturedMenu";
+import Quote from "../components/landing/Quote";
+import Location from "../components/landing/Location";
 import Footer from "../components/landing/Footer";
 import gsap from "gsap";
 import { useLocation } from "react-router";
