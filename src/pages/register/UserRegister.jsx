@@ -4,6 +4,7 @@ import { FormButton } from "../../components/common/FormButton";
 import { Link, useNavigate } from "react-router";
 import { userRegister } from "../../lib/api/UserApi";
 import { alertError, alertSuccess } from "../../lib/alert";
+import logo from "/logo.png";
 
 const UserRegister = () => {
   const [firstName, setFirstName] = useState("");
@@ -42,7 +43,7 @@ const UserRegister = () => {
   return (
     <>
       <img
-        src="src/assets/img/logo.png"
+        src={logo}
         alt="Nutribox Logo"
         className="object-cover h-24 -mb-6"
         loading="lazy"

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clear } from "../../store/slices/cartSlice";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cartItemMultipleAdd } from "../../lib/api/CartApi";
+import logo from "/logo.png";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
@@ -112,7 +113,7 @@ const UserLogin = () => {
   return (
     <>
       <img
-        src="src/assets/img/logo.png"
+        src={logo}
         alt="Nutribox Logo"
         className="object-cover h-24 -mb-4"
         loading="lazy"
