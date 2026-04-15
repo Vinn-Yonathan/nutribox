@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import LocationDetail from "./locationDetail";
+import LocationDetail from "./LocationDetail";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -53,7 +53,7 @@ const Location = () => {
         duration: 1,
         stagger: 0.3,
         ease: "expo.out",
-      }
+      },
     );
   }, [locations]);
 
