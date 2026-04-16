@@ -60,7 +60,7 @@ const CardFM = ({ src, title, desc, id }) => {
         <h3 className="font-fraunces text-2xl gradient-text font-bold">
           {title}
         </h3>
-        <p className="font-poppins text-xs text-muted">{desc}</p>
+        <p className="font-poppins text-xs text-muted line-clamp-3">{desc}</p>
         <button
           ref={btnRef}
           className="self-end px-[1em] font-poppins py-[.1em] md:py-[0.3em] xl:mx-3 border-2 rounded-full flex-center space-x-1 mt-3"
