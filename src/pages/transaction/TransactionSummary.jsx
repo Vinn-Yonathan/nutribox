@@ -60,7 +60,13 @@ const TransactionSummary = () => {
       "Are you sure want to order these items ?",
     );
     if (confirmed) {
-      mutation.mutate();
+      if (!user.address) {
+        alertError(
+          "Please add your address to your profile first before create order.",
+        );
+      } else {
+        mutation.mutate();
+      }
     }
   };
 
