@@ -144,7 +144,7 @@ const MenuForm = ({
           <input
             type="checkbox"
             name="isFeatured"
-            value={formData.isFeatured}
+            checked={formData.isFeatured === 1}
             onChange={(e) =>
               setFormData({ ...formData, isFeatured: e.target.checked ? 1 : 0 })
             }
