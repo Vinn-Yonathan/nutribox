@@ -16,6 +16,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { cartDetail } from "../../lib/api/CartApi";
 import { PuffLoader } from "react-spinners";
+import logo from "/logo.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -260,9 +261,14 @@ const NavBar = ({ className }) => {
         </div>
       ) : (
         // Dekstop navbar
-        <div className="flex justify-between items-center px-3 md:paddingx py-3">
+        <div className="flex text-center justify-between items-center px-3 md:paddingx-tablet xl:paddingx py-3">
           <Link to="/#section-hero" className="font-jomhuria text-5xl">
-            NUTRIBOX
+            <img
+              src={logo}
+              alt="Nutribox Logo"
+              className="object-cover h-18 sm:hidden"
+            />
+            <span className="hidden sm:block">NUTRIBOX</span>
           </Link>
 
           <ul className="hidden md:flex-center space-x-4 text-3xl">
@@ -364,13 +370,13 @@ const NavBar = ({ className }) => {
               <>
                 <Link
                   to="/register"
-                  className="flex-center font-jomhuria text-3xl hover:gradient-text transition duration-75 ease-in"
+                  className="flex-center font-jomhuria text-3xl hover:gradient-text transition duration-75 ease-in leading-none"
                 >
                   SIGN UP
                 </Link>
                 <Link
                   to="/login"
-                  className="flex-center font-jomhuria text-3xl hover:gradient-text transition duration-75 ease-in"
+                  className="flex-center font-jomhuria text-3xl hover:gradient-text transition duration-75 ease-in leading-none"
                 >
                   SIGN IN
                 </Link>

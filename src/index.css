@@ -61,7 +61,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
+  color: transparent;
 }
 
 :root {
@@ -133,7 +133,7 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(2.25rem, 8vw, 4.5rem);
+  font-size: clamp(2.6rem, 8vw, 4.5rem);
 }
 
 .btn-gradient {

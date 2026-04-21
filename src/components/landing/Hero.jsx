@@ -48,14 +48,11 @@ const Hero = ({ classname = "" }) => {
   };
 
   useGSAP(() => {
-    const heroSplit = new SplitText(".hero-title", {
-      type: "chars",
-    });
     const heroDescSplit = new SplitText(".hero-desc", {
       type: "chars",
     });
 
-    gsap.from([heroSplit.chars, heroDescSplit.chars], {
+    gsap.from([heroDescSplit.chars], {
       opacity: 0,
       yPercent: 100,
       duration: 0.8,
@@ -63,14 +60,22 @@ const Hero = ({ classname = "" }) => {
       stagger: 0.04,
       repeat: 0,
     });
+
+    gsap.from(".hero-title", {
+      opacity: 0,
+      yPercent: 100,
+      duration: 2,
+      ease: "expo.out",
+      repeat: 0,
+    });
   });
 
   return (
     <section
-      className={`relative min-h-screen pt-55 sm:pt-70 md:pt-40 lg:pt-35 flex items-center flex-col text-center overflow-hidden space-y-5 paddingx-mobile sm:paddingx-tablet lg:paddingx ${classname}`}
+      className={`relative min-h-screen pt-50 sm:pt-70 md:pt-40 lg:pt-35 flex items-center flex-col text-center overflow-hidden space-y-5  sm:paddingx-tablet lg:paddingx ${classname}`}
       id="section-hero"
     >
-      <h1 className="hero-title font-fraunces font-black break-words">
+      <h1 className="hero-title font-fraunces font-black">
         GOODNESS PREPARED <br />
         IN <span className="gradient-text">EVERY BOX</span>
       </h1>

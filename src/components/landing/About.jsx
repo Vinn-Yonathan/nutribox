@@ -56,7 +56,7 @@ const About = ({ className }) => {
 
   return (
     <section
-      className={`flex justify-center items-center lg:items-start flex-col lg:space-y-15 min-h-screen paddingx-mobile sm:paddingx-tablet lg:paddingx md:py-20 ${className}`}
+      className={`flex justify-center items-center lg:items-start flex-col lg:space-y-15 min-h-screen paddingx-mobile sm:paddingx-tablet lg:paddingx ${className}`}
       id="section-about"
     >
       <h2 className="font-bold font-fraunces text-6xl pl-10 text-center hidden lg:block">

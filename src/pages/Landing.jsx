@@ -27,7 +27,7 @@ function Landing() {
       <header className="w-full">
         <NavBar className="nav" />
       </header>
-      <main className="w-full flex flex-col md:space-y-10">
+      <main className="w-full flex flex-col lg:space-y-30">
         <Hero className="hero" />
         <About className="about" />
         <FeaturedMenu />

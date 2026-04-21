@@ -113,7 +113,7 @@ const UserCart = () => {
 
     return (
       <>
-        <div className="flex flex-col gap-y-8 overflow-y-auto px-4">
+        <div className="flex flex-col gap-y-8 overflow-y-auto sm:px-4">
           {cart.map((item) => {
             return (
               <div
@@ -153,7 +153,7 @@ const UserCart = () => {
 
   return (
     <>
-      <section className="h-[75vh] px-8 py-8 flex flex-col justify-between">
+      <section className="h-[75vh] sm:px-8 py-8 flex flex-col justify-between">
         <RenderContent />
       </section>
     </>
