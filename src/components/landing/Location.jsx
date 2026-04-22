@@ -60,13 +60,13 @@ const Location = () => {
 
   return (
     <section
-      className="flex-center min-h-screen w-full paddingx-mobile relative sm:space-x-10"
+      className="flex-center min-h-screen w-full paddingx-mobile relative sm:space-x-10 overflow-hidden"
       id="section-location"
     >
       <img
-        src={store}
+        className="absolute sm:static rounded-2xl -left-[35%] top-[40%] h-[24rem] sm:h-[26rem] sm:w-1/2 lg:h-[32rem] lg:w-2/3 object-cover"
         alt="Picture of Main Store"
-        className="absolute sm:static rounded-2xl -left-40 top-77 h-[24rem] sm:h-[26rem] sm:w-1/2 lg:h-[32rem] lg:w-2/3 object-cover"
+        src={store}
         loading="lazy"
       />
       <div className="flex flex-col space-y-15">
