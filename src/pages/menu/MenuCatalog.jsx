@@ -59,7 +59,7 @@ const MenuCatalog = () => {
       return (
         <PuffLoader color="var(--primary)" className="self-center my-10" />
       );
-    if (isError) return alertError(error.message);
+    if (isError) console.error(error.message);
     if (menus.length === 0)
       return <p className="text-center text-xl font-poppins">No menu found.</p>;
 
