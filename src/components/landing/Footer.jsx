@@ -62,7 +62,7 @@ const Footer = () => {
             <h3 className="text-xl font-bold lg:text-2xl lg:mb-2">Services</h3>
             <ul className="text-xs space-y-1.5 font-semibold lg:text-base">
               <li>
-                <Link to="" className="footer-link">
+                <Link to="/menus" className="footer-link">
                   <ArrowUpRight className="inline arrow-icon" /> All Menu
                 </Link>
               </li>
